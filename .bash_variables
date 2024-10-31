@@ -1,0 +1,8 @@
+# Benjamin Michael Taylor (bentaylorhk)
+# 2023
+
+# PS1 is set in /etc/bash.bashrc for all users
+
+# The default text editor
+export EDITOR="vim"
+export VISUAL=$EDITOR

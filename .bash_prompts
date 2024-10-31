@@ -1,0 +1,24 @@
+# Benjamin Michael Taylor (bentaylorhk)
+# 2023
+
+__style_break="\[\e[m\]"
+
+# Gradient polyOS
+__p="\[\e[38;5;196m\]p"
+__o="\[\e[38;5;202m\]o"
+__l="\[\e[38;5;208m\]l"
+__y="\[\e[38;5;214m\]y"
+__O="\[\e[38;5;220m\]O"
+__S="\[\e[38;5;226m\]S"
+__os="[ $__p$__o$__l$__y$__O$__S$__style_break ]"
+
+__username="\[\e[38;5;250m\]\u$__style_break"
+
+if [ "`id -u`" -eq 0 ]; then
+    __symbol="#"
+else
+    __symbol="$"
+fi
+
+export PS1="$__os $__username \w $__symbol "
+
