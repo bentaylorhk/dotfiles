@@ -2,14 +2,5 @@
 # ~/.bash_profile
 #
 
-
-#
-# Environment Variables
-#
-
-
-
-#
-# Finally sourcing ~/.bashrc
-#
+# Sourcing .bashrc
 [[ -f ~/.bashrc ]] && . ~/.bashrc

@@ -2,6 +2,9 @@
 # ~/.bashrc
 #
 
+# Benjamin Michael Taylor (bentaylorhk)
+# 2023 - 2024
+
 # If not running interactively, don't do anything
 [[ $- != *i* ]] && return
 
@@ -21,4 +24,4 @@ fi
 
 # Console Header
 cbonsai -p
-python /home/ben/scripts/bash_header.py --dir-path /home/ben/ascii-art/polyOS
+python $HOME/scripts/bash_header.py --dir-path $HOME/ascii-art/polyOS

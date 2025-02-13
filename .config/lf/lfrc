@@ -1,6 +1,6 @@
 # Benjamin Michael Taylor (bentaylorhk)
-# 2023
+# 2023 - 2024
 
-set hidden on
-set mouse on
-set number on
+set hidden true
+set mouse true
+set number true
