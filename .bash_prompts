@@ -1,9 +1,5 @@
 # Benjamin Michael Taylor (bentaylorhk)
-<<<<<<< HEAD
-# 2023
-=======
 # 2023 - 2024
->>>>>>> 991162a (Initial pocket premerge commit)
 
 __style_break="\[\e[m\]"
 
@@ -24,10 +20,5 @@ else
     __symbol="$"
 fi
 
-<<<<<<< HEAD
-export PS1="$__os $__username \w $__symbol "
-
-=======
 PS1="$__os $__username \w $__symbol "
-PS1='[\u@\h \W]\$ '
->>>>>>> 991162a (Initial pocket premerge commit)
+#PS1='[\u@\h \W]\$ '
