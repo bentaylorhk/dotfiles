@@ -1,3 +1,7 @@
+[init]
+	defaultBranch = main
 [user]
-	email = benjamin.taylor@arm.com
+	email = bentaylorhk@gmail.com
 	name = Benjamin Taylor
+[core]
+	editor = nvim
