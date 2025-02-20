@@ -47,3 +47,6 @@
 *fuzzy: 0
 *min_width: 840
 *lines: 10
+
+! dpi, for text scaling on small screen
+Xft.dpi: 120

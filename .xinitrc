@@ -9,43 +9,31 @@ sysmodmap=/etc/X11/xinit/.Xmodmap
 
 if [ -f $sysresources ]; then
 
-
-
-
-
-
-
-    xrdb -merge $sysresources
+  xrdb -merge $sysresources
 
 fi
 
 if [ -f $sysmodmap ]; then
-    xmodmap $sysmodmap
+  xmodmap $sysmodmap
 fi
 
 if [ -f "$userresources" ]; then
 
-
-
-
-
-
-
-    xrdb -merge "$userresources"
+  xrdb -merge "$userresources"
 
 fi
 
 if [ -f "$usermodmap" ]; then
-    xmodmap "$usermodmap"
+  xmodmap "$usermodmap"
 fi
 
 # start some nice programs
 
-if [ -d /etc/X11/xinit/xinitrc.d ] ; then
- for f in /etc/X11/xinit/xinitrc.d/?*.sh ; do
-  [ -x "$f" ] && . "$f"
- done
- unset f
+if [ -d /etc/X11/xinit/xinitrc.d ]; then
+  for f in /etc/X11/xinit/xinitrc.d/?*.sh; do
+    [ -x "$f" ] && . "$f"
+  done
+  unset f
 fi
 
 #twm &
@@ -54,6 +42,15 @@ fi
 #xterm -geometry 80x20+494-0 &
 #exec xterm -geometry 80x66+0+0 -name login
 
-# TODO: Command to rotatei3 display
-xrandr --output DSI1 --mode 1200x1920 --rotate right
+# Laptop display
+xrandr --output DSI1 --mode 1200x1920 --rotate right --primary
+
+# Outputting to HDMI if detected
+if [[ "$(xrandr | grep HDMI1)" != "" ]]; then
+  xrandr --output HDMI1 --mode 1920x1080 --right-of DSI1
+fi
+
+# Setting colour scheme
+wpg -n --theme .colour-schemes/jmbi.json
+
 exec i3

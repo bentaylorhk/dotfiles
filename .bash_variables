@@ -1,10 +1,11 @@
 #!/bin/bash
 # Benjamin Michael Taylor (bentaylorhk)
-# 2023 - 2024
+# 2023 - 2025
 
 # PS1 is set in /etc/bash.bashrc for all users
 
 PATH=$PATH:$HOME/bin
+PATH=$PATH:$HOME/repos/st
 
 # User-specific configuration
 XDG_CONFIG_HOME=$HOME/.config
@@ -26,5 +27,5 @@ XDG_CONFIG_DIRS=/etc/xdg
 EDITOR="nvim"
 VISUAL=$EDITOR
 
-#TODO: Probs just set this elsewhere, i3 config?
-#TERM=/usr/bin/st
+# Terminal binaary built locally
+TERMINAL=$HOME/repos/st/st
