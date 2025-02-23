@@ -3,7 +3,7 @@
 #
 
 # Benjamin Michael Taylor (bentaylorhk)
-# 2023 - 2024
+# 2023 - 2025
 
 # If not running interactively, don't do anything
 [[ $- != *i* ]] && return

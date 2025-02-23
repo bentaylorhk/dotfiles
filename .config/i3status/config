@@ -1,3 +1,6 @@
+# Benjamin Michael Taylor (bentaylorhk)
+# 2024 - 2025
+
 # i3status configuration file.
 # see "man i3status" for documentation.
 
@@ -10,6 +13,9 @@ general {
         output_format = "i3bar"
         colors = true
         interval = 1
+        color_good = "#6c782e"
+        color_degraded = "#c35e0a"
+        color_bad = "#c14a4a"
 }
 
 #order += "ipv6"
@@ -43,6 +49,7 @@ cpu_temperature 0 {
         format = " CPU: %degrees °C "
 #        max_threshold = 80
         path = "/sys/devices/platform/coretemp.0/hwmon/hwmon5/temp3_input"
+
 }
 
 battery 0 {
