@@ -1,5 +1,5 @@
 # Benjamin Michael Taylor (bentaylorhk)
-# 2023 - 2024
+# 2023 - 2025
 
 alias dotfiles='/usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME'
 

@@ -38,7 +38,7 @@
 *.color15:      COLOR15
 
 ! dmenu
-*font: GohuNew:size=11
+*font: ProFontOTB:size=20
 !*icons: TODO
 *user_bh: 38
 *vertpad: 10
