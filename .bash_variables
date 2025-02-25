@@ -4,28 +4,28 @@
 
 # PS1 is set in /etc/bash.bashrc for all users
 
-PATH=$PATH:$HOME/bin
-PATH=$PATH:$HOME/repos/st
+export PATH=$PATH:$HOME/bin
+export PATH=$PATH:$HOME/repos/st
 
 # User-specific configuration
-XDG_CONFIG_HOME=$HOME/.config
+export XDG_CONFIG_HOME=$HOME/.config
 
 # User-specific non-essential (cached) data
-XDG_CACHE_HOME=$HOME/.cache
+export XDG_CACHE_HOME=$HOME/.cache
 
 # User-specific data files
-XDG_DATA_HOME=$HOME/.local/share
+export XDG_DATA_HOME=$HOME/.local/share
 
 # User-specific state files
-XDG_STATE_HOME=$HOME/.local/state
+export XDG_STATE_HOME=$HOME/.local/state
 
 # System directories
-XDG_DATA_DIRS=/usr/local/share:/usr/share
-XDG_CONFIG_DIRS=/etc/xdg
+export XDG_DATA_DIRS=/usr/local/share:/usr/share
+export XDG_CONFIG_DIRS=/etc/xdg
 
 # The default text editor
-EDITOR="nvim"
-VISUAL=$EDITOR
+export EDITOR="nvim"
+export VISUAL=$EDITOR
 
-# Terminal binaary built locally
-TERMINAL=$HOME/repos/st/st
+# Terminal binary built locally
+export TERMINAL=$HOME/repos/st/st

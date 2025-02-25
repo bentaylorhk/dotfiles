@@ -12,6 +12,7 @@
 [[ -f ~/.bash_aliases ]] && . ~/.bash_aliases
 [[ -f ~/.bash_variables ]] && . ~/.bash_variables
 [[ -f ~/.bash_prompts ]] && . ~/.bash_prompts
+[[ -f ~/.bash_keys ]] && . ~/.bash_keys
 
 # Setting to use .Xresources colors
 if [ "$TERM" = "linux" ]; then

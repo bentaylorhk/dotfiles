@@ -1,3 +1,6 @@
 [user]
 	email = benjamin.taylor@arm.com
 	name = Benjamin Taylor
+  username = bentaylorhk
+[init]
+	defaultBranch = main
