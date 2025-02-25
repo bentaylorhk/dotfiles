@@ -5,7 +5,7 @@
  *
  * font: see http://freedesktop.org/software/fontconfig/fontconfig-user.html
  */
-static char *font = "ProFontOTB:pixelsize=20:antialias=false:autohint=true";
+static char *font = "GohuFont uni14 Nerd Font Mono:pixelsize=22:antialias=false:autohint=true";
 static int borderpx = 0;
 
 /*
