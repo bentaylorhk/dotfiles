@@ -51,6 +51,9 @@ if [[ "$(xrandr | grep HDMI1)" != "" ]]; then
 fi
 
 # Setting colour scheme
-wpg -n --theme .colour-schemes/jmbi.json
+#wpg -n --theme .colour-schemes/jmbi.json
+
+# Setting the background to a solid colour
+xsetroot -solid "#f2e5bc"
 
 exec i3

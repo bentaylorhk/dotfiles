@@ -6,10 +6,10 @@
 [Unit]
 Description=polyOS Boot Animation
 Before=getty@tty1.service
-After=systemd-user-sessions.service plymouth-quit.service
+After=systemd-user-sessions.service plymouth-quit-wait.service getty-pre.target
 
 [Service]
-Type=simple
+Type=oneshot
 ExecStart=/usr/local/bin/boot-animation.sh
 StandardOutput=tty
 RemainAfterExit=yes

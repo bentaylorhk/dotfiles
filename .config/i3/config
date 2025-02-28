@@ -197,13 +197,11 @@ set $blue     #45707a
 set $purple   #945e80
 set $aqua     #4c7a5d
 set $darkgray #fbf1c7
-
-client.focused          $green      $green      $bg     $green      $green 
-client.focused_inactive $fg         $fg         $bg     $fg         $fg
-client.unfocused        $bg         $bg         $fg     $bg         $bg
+client.focused          $bg         $green      $bg     $bg         $bg 
+client.focused_inactive $bg         $fg         $bg     $bg         $bg
+client.unfocused        $bg         $fg         $bg     $bg         $bg
 client.urgent           $red        $red        $bg     $red        $red
-client.placeholder      $bg         $bg         $bg     $bg         $bg
-client.background       $b
+client.placeholder      $bg         $fg         $bg     $bg         $bg
 
 bar {
   status_command i3status
@@ -214,15 +212,17 @@ bar {
 
     # workspaces section
     #                  border  backgr. text
-    focused_workspace  $green  $green  $bg
-    inactive_workspace $bg     $fg     $bg
-    active_workspace   $bg     $orange $bg
-    urgent_workspace   $red    $red    $fg
-    binding_mode       $red    $red    $fg
+    focused_workspace  $bg     $fg     $bg
+    inactive_workspace $bg     $bg     $fg
+    active_workspace   $bg     $bg     $fg
+    urgent_workspace   $red    $bg     $fg
+    binding_mode       $red    $bg     $fg
   }
 }
 
 bindsym $mod+d exec --no-startup-id "dmenu_run -nf '$fg' -nb '$bg' -sb '$green' -sf '$bg' -fn 'GohuFont uni14 Nerd Font Mono-14' -p 'polySearch'"
+
+gaps inner 10
 
 # ---------------------------------------------
 
