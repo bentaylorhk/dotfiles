@@ -1,0 +1,19 @@
+; Benjamin Michael Taylor (bentaylorhk)
+; 2025
+
+; To be copied into /etc/systemd/system/*.service
+
+[Unit]
+Description=polyOS Boot Animation
+Before=getty@tty1.service
+After=systemd-user-sessions.service plymouth-quit.service
+
+[Service]
+Type=simple
+ExecStart=/usr/local/bin/boot-animation.sh
+StandardOutput=tty
+RemainAfterExit=yes
+TTYPath=/dev/tty1
+
+[Install]
+WantedBy=multi-user.target
