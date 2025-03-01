@@ -1,0 +1,71 @@
+{
+  "border": "off",
+  "floating": "auto_off",
+  "layout": "splitv",
+  "marks": [],
+  "percent": 0.51875,
+  "type": "con",
+  "nodes": [
+    {
+      "border": "none",
+      "current_border_width": 3,
+      "floating": "auto_off",
+      "geometry": {
+        "height": 300,
+        "width": 520,
+        "x": 0,
+        "y": 0
+      },
+      "marks": [],
+      "name": "st",
+      "percent": 0.57032590051458,
+      "type": "con",
+      "swallows": [
+        {
+          "title": "^cbonsai$"
+        }
+      ]
+    },
+    {
+      "border": "none",
+      "current_border_width": 3,
+      "floating": "auto_off",
+      "geometry": {
+        "height": 300,
+        "width": 520,
+        "x": 0,
+        "y": 0
+      },
+      "marks": [],
+      "name": "st",
+      "percent": 0.42967409948542,
+      "type": "con",
+      "swallows": [
+        {
+          "title": "^neofetch$"
+        }
+      ]
+    }
+  ]
+}
+
+{
+  "border": "none",
+  "current_border_width": 3,
+  "floating": "auto_off",
+  "geometry": {
+    "height": 300,
+    "width": 520,
+    "x": 0,
+    "y": 0
+  },
+  "marks": [],
+  "name": "st",
+  "percent": 0.48125,
+  "type": "con",
+  "swallows": [
+    {
+      "title": "^htop$"
+    }
+  ]
+}
