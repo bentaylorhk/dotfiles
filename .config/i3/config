@@ -197,6 +197,7 @@ set $blue     #45707a
 set $purple   #945e80
 set $aqua     #4c7a5d
 set $darkgray #fbf1c7
+
 client.focused          $bg         $green      $bg     $bg         $bg 
 client.focused_inactive $bg         $fg         $bg     $bg         $bg
 client.unfocused        $bg         $fg         $bg     $bg         $bg
@@ -212,11 +213,11 @@ bar {
 
     # workspaces section
     #                  border  backgr. text
-    focused_workspace  $bg     $fg     $bg
-    inactive_workspace $bg     $bg     $fg
-    active_workspace   $bg     $bg     $fg
-    urgent_workspace   $red    $bg     $fg
-    binding_mode       $red    $bg     $fg
+    focused_workspace  $bg     $green  $bg
+    inactive_workspace $bg     $fg     $bg
+    active_workspace   $bg     $fg     $bg
+    urgent_workspace   $red    $red    $bg
+    binding_mode       $red    $fg     $bg
   }
 }
 
@@ -224,5 +225,8 @@ bindsym $mod+d exec --no-startup-id "dmenu_run -nf '$fg' -nb '$bg' -sb '$green' 
 
 gaps inner 10
 
-# ---------------------------------------------
-
+# Auto launched windows
+exec --no-startup-id i3-msg "workspace 1; append_layout /home/ben/.config/i3/boot-layout.json"
+exec --no-startup-id i3-msg "exec st -t cbonsai -e sh -c 'cbonsai -li'"
+exec --no-startup-id i3-msg "exec st -t neofetch -e sh -c 'neofetch && read'"
+exec --no-startup-id i3-msg "exec st -t htop -e sh -c 'htop'"
