@@ -38,15 +38,20 @@
 *.color15:      COLOR15
 
 ! dmenu
-*font: ProFontOTB:size=20
+!*font: ProFontOTB:size=20
 !*icons: TODO
-*user_bh: 38
-*vertpad: 10
-*vertpad: 10
-*centered: 1
-*fuzzy: 0
-*min_width: 840
-*lines: 10
+!*user_bh: 38
+!*vertpad: 10
+!*vertpad: 10
+!*centered: 1
+!*fuzzy: 0
+!*min_width: 840
+!*lines: 10
+
+Xft.antialias: 0
+Xft.rgba: none
+Xft.hinting: 1
+Xft.hintstyle: hintfull
 
 ! dpi, for text scaling on small screen
 Xft.dpi: 120

@@ -17,7 +17,8 @@ set $mod Mod4
 # Font for window titles. Will also be used by the bar unless a different font
 # is used in the bar {} block below.
 # font pango:ProFontOTB 15
-font pango:GohuFont uni14 Nerd Font Mono 14
+#font pango:GohuFont uni14 Nerd Font Mono 14
+font pango:scientifica 14
 
 # This font is widely installed, provides lots of unicode glyphs, right-to-left
 # text rendering and scalability on retina/hidpi displays (thanks to pango).
@@ -198,11 +199,11 @@ set $purple   #945e80
 set $aqua     #4c7a5d
 set $darkgray #fbf1c7
 
-client.focused          $bg         $green      $bg     $bg         $bg 
-client.focused_inactive $bg         $fg         $bg     $bg         $bg
-client.unfocused        $bg         $fg         $bg     $bg         $bg
-client.urgent           $red        $red        $bg     $red        $red
-client.placeholder      $bg         $fg         $bg     $bg         $bg
+client.focused          $green $green $bg   $green $green 
+client.focused_inactive $fg    $fg    $bg   $fg    $fg
+client.unfocused        $fg    $fg    $bg   $fg    $fg
+client.urgent           $red   $red   $bg   $red   $red
+client.placeholder      $fg    $fg    $bg   $fg    $fg
 
 bar {
   status_command i3status
@@ -221,12 +222,20 @@ bar {
   }
 }
 
-bindsym $mod+d exec --no-startup-id "dmenu_run -nf '$fg' -nb '$bg' -sb '$green' -sf '$bg' -fn 'GohuFont uni14 Nerd Font Mono-14' -p 'polySearch'"
+#bindsym $mod+d exec --no-startup-id "dmenu_run -nf '$fg' -nb '$bg' -sb '$green' -sf '$bg' -fn 'GohuFont uni14 Nerd Font Mono-14' -p 'polySearch'"
+bindsym $mod+d exec --no-startup-id "dmenu_run -nf '$fg' -nb '$bg' -sb '$green' -sf '$bg' -fn 'scientifica-14' -p 'polySearch'"
 
 gaps inner 10
 
-# Auto launched windows
-exec --no-startup-id i3-msg "workspace 1; append_layout /home/ben/.config/i3/boot-layout.json"
+default_border pixel 5
+
+# Terminals have no borders, except when they enter nvim
+for_window [class="st"] border pixel 0
+for_window [class="st" title="nvim"] border pixel 5
+
+exec --no-startup-id i3-msg "workspace 1; append_layout /home/ben/.config/i3/boot_layout.json"
+
+exec --no-startup-id i3-msg "exec feh --zoom 35 /home/ben/images/dashboard"
 exec --no-startup-id i3-msg "exec st -t cbonsai -e sh -c 'cbonsai -li'"
-exec --no-startup-id i3-msg "exec st -t neofetch -e sh -c 'neofetch && read'"
+exec --no-startup-id i3-msg "exec st -t neofetch -e sh -c 'echo && echo && neofetch && tput civis && read -r -s'"
 exec --no-startup-id i3-msg "exec st -t htop -e sh -c 'htop'"
