@@ -83,7 +83,7 @@
             },
             "marks": [],
             "name": "neofetch",
-            "percent": 0.44,
+            "percent": 0.42,
             "swallows": [
                 {
                     "title": "^neofetch$"
@@ -103,7 +103,7 @@
             },
             "marks": [],
             "name": "htop",
-            "percent": 0.56,
+            "percent": 0.58,
             "swallows": [
                 {
                     "title": "^htop$"
