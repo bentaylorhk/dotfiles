@@ -3,8 +3,6 @@
 # 2025
 set -e
 
-export TERM=linux
-
 clear
 /usr/local/bin/splash /usr/local/share/ascii-art/boot.txt
 
