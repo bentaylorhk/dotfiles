@@ -3,8 +3,8 @@
 # 2025
 set -e
 
-clear
-/usr/local/bin/splash /usr/local/share/ascii-art/boot.txt
-
 # Doubling font size for login readability
 setfont -d
+
+clear
+/usr/local/bin/splash /usr/local/share/ascii-art/boot.txt
