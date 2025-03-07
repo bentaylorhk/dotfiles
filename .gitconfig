@@ -1,6 +1,9 @@
 [user]
-	email = bentaylorhk@gmail.com
-	name = Benjamin Taylor
-  username = bentaylorhk
+    email = bentaylorhk@gmail.com
+    name = Benjamin Taylor
 [init]
-	defaultBranch = main
+    defaultBranch = main
+[github]
+    user = bentaylorhk
+[core]
+    editor = nvim
