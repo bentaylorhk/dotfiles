@@ -6,7 +6,10 @@ return {
     opts = function()
         local dashboard = require("alpha.themes.dashboard")
         local logo = [[
-        polyVim
+                  ／l、             
+        neovim  （ﾟ､ ｡ ７         
+        ======    l  ~ヽ       
+                  じしf_,)ノ
         ]]
 
         dashboard.section.header.val = vim.split(logo, "\n")
@@ -20,7 +23,7 @@ return {
           dashboard.button("z", "Restore Session", "<cmd> lua require('persistence').load() <cr>"),
           dashboard.button("l", "Lazy",            "<cmd> Lazy <cr>"),
           dashboard.button("x", "Lazy Extras",     "<cmd> LazyExtras <cr>"),
-          dashboard.button("m", "Mason",           "<cmd> mason <cr>"),
+          dashboard.button("m", "Mason",           "<cmd> Mason <cr>"),
           dashboard.button("c", "Config",          "<cmd> lua LazyVim.pick.config_files()() <cr>"),
           dashboard.button("s", "Settings",          "<cmd> e $MYVIMRC <cr>"),
           dashboard.button("q", "Quit",            "<cmd> qa <cr>"),
