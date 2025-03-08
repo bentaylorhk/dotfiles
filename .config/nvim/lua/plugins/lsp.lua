@@ -46,8 +46,6 @@ return {
 
     {
         "mfussenegger/nvim-lint",
-        --config = function()
-        --    require("lint").linters_by_ft = {
         opts = {
             c = { "clang-tidy" },
             cpp = { "clang-tidy" },
@@ -59,7 +57,6 @@ return {
             markdown = { "markdownlint" },
             dockerfile = { "hadolint" },
         },
-        --end,
     },
 
     {
