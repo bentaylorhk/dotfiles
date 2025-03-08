@@ -3,6 +3,7 @@
 
 return {
     "sphamba/smear-cursor.nvim",
+    --enabled = false,
     opts = {
         {
             -- Match grubbox light fg
