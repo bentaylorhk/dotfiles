@@ -231,6 +231,8 @@ gaps inner 10
 
 default_border pixel 5
 
+# disabling border for non-floating terminals
+for_window [class="Alacritty" window_type="floating"] border pixel 5
 for_window [class="Alacritty"] border pixel 0
 #for_window [class="Alacritty" title="nvim"] border pixel 5
 

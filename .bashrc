@@ -24,5 +24,5 @@ if [ "$TERM" = "linux" ]; then
 fi
 
 # Console Header
-cbonsai -p
+# cbonsai -p
 python $HOME/scripts/bash_header.py --dir-path $HOME/ascii-art/polyOS
