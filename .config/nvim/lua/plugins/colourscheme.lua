@@ -13,14 +13,14 @@ return {
             local colourscheme = "default"
             local background = "dark"
 
-            if term == "alacritty" or term == "st-256color" then
+            if term == "alacritty" or term == "xterm-256color" then
                 colourscheme = "gruvbox"
                 background = "light"
             elseif term == "linux" then
                 colourscheme = "melange"
                 background = "dark"
                 return "melange"
-            elseif term:match("tmux-256color") then
+            elseif term == "tmux-256color" then
                 colourscheme = "default"
             end
 

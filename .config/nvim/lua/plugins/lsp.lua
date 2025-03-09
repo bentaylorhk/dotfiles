@@ -2,9 +2,23 @@
 -- 2025
 
 return {
+
+       { "williamboman/mason.nvim",
+  opts = {
+      ensure_installed = {
+
+                -- Formatters
+        "clang-format",
+                "black", -- python
+                "shfmt", -- sh
+                "stylua", -- lua
+                "prettier", -- json/markup
+      },
+    auto_update = true, -- Automatically update tools
+    run_on_start = true, -- Run installation on startup
+    },},
     {
         "williamboman/mason-lspconfig.nvim",
-        dependencies = { "williamboman/mason.nvim" },
         opts = {
             ensure_installed = {
                 -- LSP Servers
@@ -12,6 +26,7 @@ return {
                 "basedpyright", -- python
                 "lua_ls", -- lua
                 "bashls", -- bash
+
             },
             automatic_installation = true,
         },
@@ -83,9 +98,8 @@ return {
 
     {
         "mfussenegger/nvim-lint",
-        config = function()
-            require("lint").linters_by_ft = {
-                linters_by_ft = {
+    opts = {
+      linters_by_ft = {
                     c = { "clang-tidy" },
                     cpp = { "clang-tidy" },
                     python = { "ruff" }, -- quicker than pylint
@@ -95,20 +109,25 @@ return {
                     yaml = { "yamllint" },
                     markdown = { "markdownlint" },
                     dockerfile = { "hadolint" },
-                },
-                vim.api.nvim_create_autocmd({ "BufWritePost", "BufReadPost" }, {
-                    callback = function()
-                        require("lint").try_lint()
-                    end,
-                }),
-            }
-        end,
+      }
+    }
     },
 
     {
         "stevearc/conform.nvim",
-        opts = {
-            formatters_by_ft = {
+  keys = {
+    {
+      "<leader>f",
+      function()
+        require("conform").format({ async = true })
+      end,
+      mode = "",
+      desc = "Format buffer",
+    },
+  },
+
+  opts = {
+    formatters_by_ft = {
                 c = { "clang-format" },
                 cpp = { "clang-format" },
                 python = { "black" },
@@ -117,7 +136,17 @@ return {
                 json = { "prettier" },
                 yaml = { "prettier" },
                 markdown = { "prettier" },
-            },
+    },
+
+    formatters = {
+clang_format = {
+          prepend_args = { '--style=file', '--fallback-style=LLVM' },
         },
+      shfmt = {
+        prepend_args = { "-i", "2" },
+      },
+    },
+
+  },
     },
 }
