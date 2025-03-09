@@ -81,19 +81,6 @@ return {
         },
     },
 
-    -- Diagnostic tweaks to reduce spam and CPU usage
-    {
-        "neovim/nvim-lspconfig",
-        config = function()
-            vim.lsp.handlers["textDocument/publishDiagnostics"] =
-                vim.lsp.with(vim.lsp.diagnostic.on_publish_diagnostics, {
-                    update_in_insert = false,
-                    virtual_text = { spacing = 2, severity_limit = "Warning" },
-                    debounce = 200, -- Delay updates
-                })
-        end,
-    },
-
     {
         "mfussenegger/nvim-lint",
         config = function()
@@ -101,13 +88,13 @@ return {
                 linters_by_ft = {
                     c = { "clang-tidy" },
                     cpp = { "clang-tidy" },
-                    python = { "pylint" }, -- quicker than pylint
+                    python = { "ruff" }, -- quicker than pylint
                     sh = { "shellcheck" },
                     lua = { "luacheck" },
                     json = { "checkstyle" },
                     yaml = { "yamllint" },
                     markdown = { "markdownlint" },
-                    dockerfile = { "hadolint" },
+                    -- dockerfile = { "hadolint" },
                 },
                 vim.api.nvim_create_autocmd({ "BufWritePost", "BufReadPost" }, {
                     callback = function()
@@ -124,7 +111,7 @@ return {
             formatters_by_ft = {
                 c = { "clang-format" },
                 cpp = { "clang-format" },
-                python = { "black" },
+                python = { "ruff" },
                 sh = { "shfmt" },
                 lua = { "stylua" },
                 json = { "prettier" },
