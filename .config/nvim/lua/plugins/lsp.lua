@@ -1,4 +1,4 @@
--- Benjamin Michael Taylor (bentaylorhk)
+-- Benjamin Michael Taylor (bentaylorhk
 -- 2025
 
 return {
@@ -9,7 +9,7 @@ return {
             ensure_installed = {
                 -- LSP Servers
                 "clangd", -- c/cpp
-                "pyright", -- python
+                "basedpyright", -- python
                 "lua_ls", -- lua
                 "bashls", -- bash
             },
@@ -18,6 +18,7 @@ return {
 
     {
         "neovim/nvim-lspconfig",
+        dependencies = { "p00f/clangd_extensions.nvim" },
         opts = {
             servers = {
                 clangd = {
@@ -29,34 +30,88 @@ return {
                         "--completion-style=detailed",
                         "--function-arg-placeholders",
                         "--fallback-style=llvm",
+                        "--limit-results=50", -- Reduce completion results
+                        "--malloc-trim", -- Force memory cleanup
+                        "--pch-storage=memory", -- Optimize precompiled headers
+                    },
+                    settings = {
+                        clangd = {
+                            index = {
+                                exclude = { ".git", "node_modules", "build" },
+                            },
+                        },
+                    },
+                },
+                basedpyright = {
+                    settings = {
+                        analysis = {
+                            typeCheckingMode = "strict", -- Slower than "basic"
+                            autoSearchPaths = true,
+                            useLibraryCodeForTypes = true,
+                            diagnostcMode = "openFilesOnly", -- Avoids scanning entire project
+                            indexing = false, -- Disabling background indexing saves CPU
+                        },
+                    },
+                },
+
+                lua_ls = {
+                    settings = {
+                        Lua = {
+                            workspace = {
+                                maxPreLoad = 1000,
+                                preloadFileSize = 500,
+                            },
+                            telemetry = { enable = false },
+                        },
                     },
                 },
             },
-        },
-        setup = {
-            clangd = function(_, opts)
-                local clangd_ext_opts = LazyVim.opts("clangd_extensions.nvim")
-                require("clangd_extensions").setup(
-                    vim.tbl_deep_extend("force", clangd_ext_opts or {}, { server = opts })
-                )
-                return false
-            end,
+            setup = {
+                clangd = function(_, opts)
+                    local clangd_ext_opts = LazyVim.opts("clangd_extensions.nvim")
+                    require("clangd_extensions").setup(
+                        vim.tbl_deep_extend("force", clangd_ext_opts or {}, { server = opts })
+                    )
+                    return false
+                end,
+            },
         },
     },
 
+    -- Diagnostic tweaks to reduce spam and CPU usage
+    {
+        "neovim/nvim-lspconfig",
+        config = function()
+            vim.lsp.handlers["textDocument/publishDiagnostics"] =
+                vim.lsp.with(vim.lsp.diagnostic.on_publish_diagnostics, {
+                    update_in_insert = false,
+                    virtual_text = { spacing = 2, severity_limit = "Warning" },
+                    debounce = 200, -- Delay updates
+                })
+        end,
+    },
     {
         "mfussenegger/nvim-lint",
         opts = {
-            c = { "clang-tidy" },
-            cpp = { "clang-tidy" },
-            python = { "pylint" },
-            sh = { "shellcheck" },
-            lua = { "luacheck" },
-            json = { "checkstyle" },
-            yaml = { "yamllint" },
-            markdown = { "markdownlint" },
-            dockerfile = { "hadolint" },
+            linters_by_ft = {
+                c = { "clang-tidy" },
+                cpp = { "clang-tidy" },
+                python = { "ruff" }, -- quicker than pylint
+                sh = { "shellcheck" },
+                lua = { "luacheck" },
+                json = { "checkstyle" },
+                yaml = { "yamllint" },
+                markdown = { "markdownlint" },
+                dockerfile = { "hadolint" },
+            },
         },
+        config = function()
+            vim.api.nvim_create_autocmd({ "BufWritePost", "BufReadPost" }, {
+                callback = function()
+                    require("lint").try_lint()
+                end,
+            })
+        end,
     },
 
     {
@@ -65,7 +120,7 @@ return {
             formatters_by_ft = {
                 c = { "clang-format" },
                 cpp = { "clang-format" },
-                python = { "black" },
+                python = { "ruff" }, -- quicker than black
                 sh = { "shfmt" },
                 lua = { "stylua" },
                 json = { "prettier" },
