@@ -94,7 +94,7 @@ return {
                     json = { "checkstyle" },
                     yaml = { "yamllint" },
                     markdown = { "markdownlint" },
-                    -- dockerfile = { "hadolint" },
+                    dockerfile = { "hadolint" },
                 },
                 vim.api.nvim_create_autocmd({ "BufWritePost", "BufReadPost" }, {
                     callback = function()
@@ -111,7 +111,7 @@ return {
             formatters_by_ft = {
                 c = { "clang-format" },
                 cpp = { "clang-format" },
-                python = { "ruff" },
+                python = { "black" },
                 sh = { "shfmt" },
                 lua = { "stylua" },
                 json = { "prettier" },

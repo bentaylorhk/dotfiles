@@ -14,3 +14,12 @@
 --        require("lint").try_lint()
 --    end,
 --})
+
+vim.api.nvim_create_autocmd({"FileType"}, {
+  desc = "Disable New Line Comment",
+  pattern = "*",
+  callback = function()
+    vim.opt.formatoptions:remove { "c", "r", "o" }
+  end,
+  --group = general,
+})
