@@ -1,4 +1,4 @@
--- Benjamin Michael Taylor (bentaylorhk
+-- Benjamin Michael Taylor (bentaylorhk)
 -- 2025
 
 return {
@@ -13,6 +13,7 @@ return {
                 "lua_ls", -- lua
                 "bashls", -- bash
             },
+            automatic_installation = true,
         },
     },
 
@@ -44,12 +45,14 @@ return {
                 },
                 basedpyright = {
                     settings = {
-                        analysis = {
-                            typeCheckingMode = "strict", -- Slower than "basic"
-                            autoSearchPaths = true,
-                            useLibraryCodeForTypes = true,
-                            diagnostcMode = "openFilesOnly", -- Avoids scanning entire project
-                            indexing = false, -- Disabling background indexing saves CPU
+                        basedpyright = {
+                            analysis = {
+                                typeCheckingMode = "strict", -- Slower than "basic"
+                                autoSearchPaths = true,
+                                useLibraryCodeForTypes = true,
+                                diagnostcMode = "openFilesOnly", -- Avoids scanning entire project
+                                indexing = false, -- Disabling background indexing saves CPU
+                            },
                         },
                     },
                 },
@@ -90,27 +93,28 @@ return {
                 })
         end,
     },
+
     {
         "mfussenegger/nvim-lint",
-        opts = {
-            linters_by_ft = {
-                c = { "clang-tidy" },
-                cpp = { "clang-tidy" },
-                python = { "ruff" }, -- quicker than pylint
-                sh = { "shellcheck" },
-                lua = { "luacheck" },
-                json = { "checkstyle" },
-                yaml = { "yamllint" },
-                markdown = { "markdownlint" },
-                dockerfile = { "hadolint" },
-            },
-        },
         config = function()
-            vim.api.nvim_create_autocmd({ "BufWritePost", "BufReadPost" }, {
-                callback = function()
-                    require("lint").try_lint()
-                end,
-            })
+            require("lint").linters_by_ft = {
+                linters_by_ft = {
+                    c = { "clang-tidy" },
+                    cpp = { "clang-tidy" },
+                    python = { "pylint" }, -- quicker than pylint
+                    sh = { "shellcheck" },
+                    lua = { "luacheck" },
+                    json = { "checkstyle" },
+                    yaml = { "yamllint" },
+                    markdown = { "markdownlint" },
+                    dockerfile = { "hadolint" },
+                },
+                vim.api.nvim_create_autocmd({ "BufWritePost", "BufReadPost" }, {
+                    callback = function()
+                        require("lint").try_lint()
+                    end,
+                }),
+            }
         end,
     },
 
@@ -120,7 +124,7 @@ return {
             formatters_by_ft = {
                 c = { "clang-format" },
                 cpp = { "clang-format" },
-                python = { "ruff" }, -- quicker than black
+                python = { "black" },
                 sh = { "shfmt" },
                 lua = { "stylua" },
                 json = { "prettier" },
