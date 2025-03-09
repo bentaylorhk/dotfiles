@@ -225,20 +225,18 @@ bar {
   }
 }
 
-#bindsym $mod+d exec --no-startup-id "dmenu_run -nf '$fg' -nb '$bg' -sb '$green' -sf '$bg' -fn 'GohuFont uni14 Nerd Font Mono-14' -p 'polySearch'"
 bindsym $mod+d exec --no-startup-id "dmenu_run -nf '$fg' -nb '$bg' -sb '$green' -sf '$bg' -fn 'scientifica-13' -p 'polySearch'"
 
 gaps inner 10
 
 default_border pixel 5
 
-# Terminals have no borders, except when they enter nvim
-for_window [class="st"] border pixel 0
-for_window [class="st" title="nvim"] border pixel 5
+for_window [class="Alacritty"] border pixel 0
+#for_window [class="Alacritty" title="nvim"] border pixel 5
 
 exec --no-startup-id i3-msg "workspace 1; append_layout /home/ben/.config/i3/boot_layout.json"
 
 exec --no-startup-id i3-msg "exec feh --zoom 35 /home/ben/images/dashboard"
-exec --no-startup-id i3-msg "exec st -t cbonsai -e sh -c 'cbonsai -li'"
-exec --no-startup-id i3-msg "exec st -t neofetch -e sh -c 'echo && echo && neofetch && tput civis && read -r -s'"
-exec --no-startup-id i3-msg "exec st -t htop -e sh -c 'htop'"
+exec --no-startup-id i3-msg "exec alacritty --title cbonsai -e sh -c 'cbonsai -li'"
+exec --no-startup-id i3-msg "exec alacritty --title neofetch -e sh -c 'echo && echo && neofetch && tput civis && read -r -s'"
+exec --no-startup-id i3-msg "exec alacritty --title htop -e sh -c 'htop'"

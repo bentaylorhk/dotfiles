@@ -28,4 +28,4 @@ export EDITOR="nvim"
 export VISUAL=$EDITOR
 
 # Terminal binary built locally
-export TERMINAL=$HOME/repos/st/st
+export TERMINAL=alacritty 

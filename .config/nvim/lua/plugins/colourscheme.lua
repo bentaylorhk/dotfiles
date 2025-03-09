@@ -1,42 +1,40 @@
 -- Benjamin Michael Taylor (bentaylorhk)
 -- 2025
---[[
-return {
-    {
-        "morhetz/gruvbox",
-
-        -- Load immediately
-        lazy = false,
-
-        -- High priority, to load before other plugins
-        priority = 1000,
-
-        config = function()
-            vim.cmd("colorscheme gruvbox")
-            vim.o.background = "light"
-        end,
-    },
-}
-]]
 
 return {
+    { "ellisonleao/gruvbox.nvim" },
     { "savq/melange-nvim" },
     {
         "LazyVim/LazyVim",
-        opts = {
-            colorscheme = function()
-                local term = vim.loop.os_getenv("TERM")
+        priority = 1000,
+        config = function()
+            local term = vim.loop.os_getenv("TERM") or ""
 
-                if term == "st-256color" then
-                    return "gruvbox"
-                elseif term == "linux" then
-                    return "melange"
-                elseif term == "tmux-256color" then
-                    return "default"
-                else
-                    return "default"
-                end
-            end,
-        },
+            local colourscheme = "default"
+            local background = "dark"
+
+            if term == "alacritty" or term == "st-256color" then
+                colourscheme = "gruvbox"
+                background = "light"
+            elseif term == "linux" then
+                colourscheme = "melange"
+                background = "dark"
+                return "melange"
+            elseif term:match("tmux-256color") then
+                colourscheme = "default"
+            end
+
+            vim.opt.background = background
+
+            if colourscheme == "gruvbox" then
+                require("gruvbox").setup({
+                    contrast = "soft",
+                    transparent_mode = false,
+                    dim_inactive = false,
+                })
+            end
+
+            vim.cmd("colorscheme " .. colourscheme)
+        end,
     },
 }
