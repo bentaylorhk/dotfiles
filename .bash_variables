@@ -5,7 +5,7 @@
 # PS1 is set in /etc/bash.bashrc for all users
 
 export PATH=$PATH:$HOME/bin
-export PATH=$PATH:$HOME/repos/st
+export PATH=$PATH:$HOME/scripts
 
 # User-specific configuration
 export XDG_CONFIG_HOME=$HOME/.config
@@ -28,4 +28,4 @@ export EDITOR="nvim"
 export VISUAL=$EDITOR
 
 # Terminal binary built locally
-export TERMINAL=alacritty 
+export TERMINAL=alacritty
