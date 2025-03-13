@@ -35,7 +35,7 @@ nodejs
 
 # Editors
 vim
-nvim
+neovim
 nano
 
 # LSPs/Linters/Formatters
@@ -44,7 +44,7 @@ luarocks
 
 # Utils
 debugedit
-fakeroot-tcp
+#fakeroot-tcp USED AUR
 fd
 git
 npm
@@ -53,7 +53,7 @@ ripgrep
 sudo
 unzip
 which
-yay
+#yay
 zip
 
 # Art/Decor

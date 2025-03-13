@@ -21,15 +21,13 @@ return {
       local colourscheme = "default"
       local background = "dark"
 
-      if term == "alacritty" or term == "xterm-256color" then
+      if term == "alacritty" or term == "xterm-256color" or "tmux-256color" then
         colourscheme = "gruvbox"
         background = "light"
       elseif term == "linux" then
         colourscheme = "melange"
         background = "dark"
         return "melange"
-      elseif term == "tmux-256color" then
-        colourscheme = "default"
       end
 
       vim.opt.background = background

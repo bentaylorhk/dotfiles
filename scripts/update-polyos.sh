@@ -3,16 +3,26 @@
 # Benjamin Michael Taylor (bentaylorhk)
 # 2025
 
+# Script used to sync polyOS between machines. Syncs
+# its dotfiles, and pacman packages.
+
+# To get this script to run without a sudo prompt, add the
+# following line to sudoers with 'sudo visudo'
+# <username> ALL=(ALL) NOPASSWD: /path/to/update-polyos.sh
+
 set -e
 
 if [[ $EUID -ne 0 ]]; then
+  # Sync dotfiles before pacman to update packages file
+  echo "Syncing dotfiles"
+  git --git-dir=$HOME/.dotfiles --work-tree=$HOME pull
+
   # Using user home if list not provided
   PACKAGE_FILE="${1:-$HOME/pkglist.txt}"
 
   echo "Promoting to root privileges..."
 
   # Running whole script as root, then exiting
-  # TODO: Set no eneed for sudo
   exec sudo bash "$0" "$PACKAGE_FILE"
 fi
 
@@ -29,10 +39,6 @@ if [[ ! -f "$PACKAGE_FILE" ]]; then
   echo "Error: Package list file '$PACKAGE_FILE' not found."
   exit 1
 fi
-
-# Sync dotfiles before pacman to update packages file
-echo "Syncing dotfiles"
-dotfiles pull
 
 # System update
 echo "Updating system..."
