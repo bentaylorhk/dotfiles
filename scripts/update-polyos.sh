@@ -7,18 +7,19 @@ set -e
 
 if [[ $EUID -ne 0 ]]; then
   # Using user home if list not provided
-  PACKAGE_FILE="${1:-$HOME/packages.txt}"
+  PACKAGE_FILE="${1:-$HOME/pkglist.txt}"
 
-  echo "Promoting to root privileges"
+  echo "Promoting to root privileges..."
 
   # Running whole script as root, then exiting
-  exec sudo bash "$0" "PACKAGE_FILE"
+  # TODO: Set no eneed for sudo
+  exec sudo bash "$0" "$PACKAGE_FILE"
 fi
 
 # Check if package list is provided
 if [[ -z "$1" ]]; then
   echo "Usage: $0 <packages.txt>"
-  echo "    '~/packages.txt' used by default"
+  echo "    '~/pkglist.txt' used by default"
   exit 1
 fi
 
@@ -29,6 +30,7 @@ if [[ ! -f "$PACKAGE_FILE" ]]; then
   exit 1
 fi
 
+# Sync dotfiles before pacman to update packages file
 echo "Syncing dotfiles"
 dotfiles pull
 

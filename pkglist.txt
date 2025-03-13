@@ -1,0 +1,61 @@
+# Benjamin Michael Taylor (bentaylorhk)
+# 2025
+
+# List of pacman packages used by polyOS
+# Can be installed with ~/scripts/update-polyos.sh
+
+# Core
+arch-install-scripts
+base
+
+#chatgpt-desktop-bin
+#chatgpt-desktop-bin-debug
+
+# CLI Tools
+htop
+less
+lynx
+tmux
+
+# C/C++
+gcc
+cmake
+make
+ninja
+
+# Python
+python
+python-openai
+python-pydantic
+
+# Languages
+ruby
+rust
+nodejs
+
+# Editors
+vim
+nvim
+nano
+
+# LSPs/Linters/Formatters
+tree-sitter-cli
+luarocks
+
+# Utils
+debugedit
+fakeroot-tcp
+fd
+git
+npm
+openssh
+ripgrep
+sudo
+unzip
+which
+yay
+zip
+
+# Art/Decor
+neofetch
+# cbonsai
