@@ -27,6 +27,10 @@ ninja
 python
 python-openai
 python-pydantic
+python-fastapi
+python-redis
+python-requests
+python-sqlalchemy
 
 # Languages
 ruby

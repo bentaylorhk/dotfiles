@@ -25,4 +25,4 @@ fi
 
 # Console Header
 # cbonsai -p
-python $HOME/scripts/bash_header.py --dir-path $HOME/ascii-art/polyOS
+python $HOME/scripts/bash_header.py --dir-path $HOME/ascii-art/bash-headers

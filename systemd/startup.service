@@ -4,13 +4,13 @@
 ; To be copied into /etc/systemd/system/*.service
 
 [Unit]
-Description=polyOS Boot Animation
+Description=polyOS Startup Script
 Before=getty@tty1.service
 After=systemd-user-sessions.service plymouth-quit-wait.service getty-pre.target
 
 [Service]
 Type=oneshot
-ExecStart=/usr/local/bin/boot-animation.sh
+ExecStart=/usr/local/bin/startup.sh
 StandardOutput=tty
 RemainAfterExit=yes
 TTYPath=/dev/tty1
