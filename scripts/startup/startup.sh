@@ -11,5 +11,5 @@ clear
 /usr/local/bin/splash /usr/local/share/ascii-art/boot.txt
 
 # Injecting login banner
-/usr/local/bin/right-justify.sh /usr/local/share/ascii-art/login.txt >/etc/issue
+/usr/local/bin/right-justify.sh /usr/local/share/ascii-art/login.txt | sed 's/\\/\\\\/g' >/etc/issue
 cat /usr/local/share/formatted-issue >>/etc/issue
