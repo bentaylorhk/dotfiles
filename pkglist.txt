@@ -8,9 +8,6 @@
 arch-install-scripts
 base
 
-#chatgpt-desktop-bin
-#chatgpt-desktop-bin-debug
-
 # CLI Tools
 htop
 less
@@ -47,8 +44,8 @@ tree-sitter-cli
 luarocks
 
 # Utils
+autorandr
 debugedit
-#fakeroot-tcp USED AUR
 fd
 git
 npm
@@ -57,9 +54,7 @@ ripgrep
 sudo
 unzip
 which
-#yay
 zip
 
 # Art/Decor
 neofetch
-# cbonsai
