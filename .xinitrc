@@ -36,9 +36,7 @@ fi
 xsetroot -solid "#f2e5bc"
 
 # Save monitor configuration with 'autorandr --save <layout_name>'
+# Touchscreen is mapped by hook in '.config/autorandr/postswitch'
 autorandr --change
-
-# Map touchscreen to only laptop
-xinput map-to-output 22 DSI1
 
 exec i3

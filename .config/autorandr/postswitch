@@ -1,0 +1,6 @@
+#!/bin/sh
+# Benjamin Michael Taylor (bentaylorhk)
+# 2025
+
+# Map touchscreen to only laptop
+xinput map-to-output 22 DSI1
