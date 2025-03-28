@@ -1,16 +1,27 @@
 # Benjamin Michael Taylor (bentaylorhk)
 # 2024 - 2025
 
-# Colours
-set $bg       #f2e5bc
-set $fg       #654735
-set $red      #c14a4a
-set $orange   #c35e0a
-set $green    #6c782e
-set $blue     #45707a
-set $purple   #945e80
-set $aqua     #4c7a5d
-set $darkgray #fbf1c7
+# gruvbox
+#set $bg       #f2e5bc
+#set $fg       #654735
+#set $red      #c14a4a
+#set $orange   #c35e0a
+#set $green    #6c782e
+#set $blue     #45707a
+#set $purple   #945e80
+#set $aqua     #4c7a5d
+#set $darkgray #fbf1c7
+
+# choihung
+set $bg       #000000
+set $fg       #ebdbb2
+set $red      #782c17
+set $orange   #af743c
+set $green    #889979
+set $blue     #85abc2
+set $purple   #865a6b
+set $aqua     #6d8f6d
+set $darkgray #1d2021
 
 set $mod Mod4
 
@@ -196,11 +207,20 @@ bar {
 
     # workspaces section
     #                  border  backgr. text
-    focused_workspace  $bg     $green  $bg
-    inactive_workspace $bg     $fg     $bg
-    active_workspace   $bg     $fg     $bg
-    urgent_workspace   $red    $red    $bg
-    binding_mode       $red    $fg     $bg
+
+    # gruvbox
+    #focused_workspace  $bg     $green  $bg
+    #inactive_workspace $bg     $fg     $bg
+    #active_workspace   $bg     $fg     $bg
+    #urgent_workspace   $red    $red    $bg
+    #binding_mode       $red    $fg     $bg
+
+    # kowloon
+    focused_workspace  $bg     $bg     $green
+    inactive_workspace $bg     $bg     $fg
+    active_workspace   $bg     $bg     $fg
+    urgent_workspace   $bg     $bg     $red
+    binding_mode       $bg     $bg     $red
   }
 }
 

@@ -2,11 +2,11 @@
 # 2025
 
 [colors.primary]
-background = '#f2e5bc' # hard contrast: #f9f5d7
+background = '#f2e5bc'
 foreground = '#3c3836'
 
 [colors.normal]
-black = '#fbf1c7'
+black = '#f2e5bc'
 red = '#cc241d'
 green = '#98971a'
 yellow = '#d79921'

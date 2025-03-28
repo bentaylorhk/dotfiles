@@ -13,9 +13,16 @@ general {
         output_format = "i3bar"
         colors = true
         interval = 1
-        color_good = "#6c782e"
-        color_degraded = "#c35e0a"
-        color_bad = "#c14a4a"
+
+        # gruvbox
+        #color_good = "#6c782e"
+        #color_degraded = "#c35e0a"
+        #color_bad = "#c14a4a"
+
+        # choihung
+        color_good = "#889979"
+        color_degraded = "#c4b86e"
+        color_bad = "#782c17"
 }
 
 #order += "ipv6"

@@ -30,10 +30,11 @@ if [ -d /etc/X11/xinit/xinitrc.d ]; then
   unset f
 fi
 
-# TODO: Conditionally execute based off /etc/hostname
-
-# Setting the background to a solid colour
-xsetroot -solid "#f2e5bc"
+if [ "$COLOURSCHEME" = "gruvbox" ]; then
+  xsetroot -solid "#f2e5bc"
+else
+  xsetroot -solid "#000000"
+fi
 
 # Save monitor configuration with 'autorandr --save <layout_name>'
 # Touchscreen is mapped by hook in '.config/autorandr/postswitch'

@@ -2,7 +2,8 @@
 # 2025
 
 [general]
-import = ["~/.config/alacritty/gruvbox.toml"]
+#import = ["~/.config/alacritty/gruvvbox.toml"]
+import = ["~/.config/alacritty/choihung.toml"]
 
 [window]
 title = "alacritty"
@@ -12,7 +13,7 @@ decorations = "full"
 #dimensions = { columns = 120, lines = 35 }
 #padding = { x = 10, y = 10 }
 #opacity = 0.95
-#
+
 [font]
 size = 13.0
 

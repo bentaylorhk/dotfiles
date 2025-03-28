@@ -1,0 +1,3 @@
+[submodule "choihung.nvim"]
+	path = repos/choihung.nvim
+	url = https://github.com/bentaylorhk/choihung.nvim

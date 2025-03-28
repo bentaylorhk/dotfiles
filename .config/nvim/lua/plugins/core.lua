@@ -3,7 +3,8 @@
 
 return {
   { "ellisonleao/gruvbox.nvim" },
-  { "savq/melange-nvim" },
+  { "bentaylorhk/choihung.nvim" },
+  --{ "savq/melange-nvim" },
   {
     "LazyVim/LazyVim",
     priority = 1000,
@@ -16,29 +17,23 @@ return {
       },
     },
     config = function()
-      local term = vim.loop.os_getenv("TERM") or ""
-
-      local colourscheme = "default"
-      local background = "dark"
-
-      if term == "alacritty" or term == "xterm-256color" or "tmux-256color" then
-        colourscheme = "gruvbox"
-        background = "light"
-      elseif term == "linux" then
-        colourscheme = "melange"
-        background = "dark"
-        return "melange"
-      end
-
-      vim.opt.background = background
+      local colourscheme = vim.loop.os_getenv("COLOURSCHEME") or "gruvbox"
+      local background = "light";
 
       if colourscheme == "gruvbox" then
+        background = "light";
         require("gruvbox").setup({
           contrast = "soft",
           transparent_mode = false,
           dim_inactive = false,
         })
+      elseif colourscheme == "choihung" then
+        background = "dark";
+      else
+        error("Invalid colourscheme name: " .. colourscheme)
       end
+
+      vim.opt.background = background
 
       vim.cmd("colorscheme " .. colourscheme)
     end,
