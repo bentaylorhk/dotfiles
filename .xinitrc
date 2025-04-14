@@ -30,7 +30,9 @@ if [ -d /etc/X11/xinit/xinitrc.d ]; then
   unset f
 fi
 
-if [ "$COLOURSCHEME" = "gruvbox" ]; then
+if [ "$COLOURSCHEME" = "choihung" ]; then
+  xsetroot -solid "#000000"
+elif [ "$COLOURSCHEME" = "gruvbox" ]; then
   xsetroot -solid "#f2e5bc"
 else
   xsetroot -solid "#000000"

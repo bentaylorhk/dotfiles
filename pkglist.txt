@@ -8,11 +8,23 @@
 arch-install-scripts
 base
 
+# X and Window Manager
+xorg-server
+xorg-xinit
+i3-wm
+i3status
+
+# UI Applications
+alacritty
+firefox
+spotify-launcher
+
 # CLI Tools
 htop
 less
 lynx
 tmux
+lf
 
 # C/C++
 gcc
@@ -55,6 +67,8 @@ sudo
 unzip
 which
 zip
+man
+fakeroot
 
 # Art/Decor
 neofetch
