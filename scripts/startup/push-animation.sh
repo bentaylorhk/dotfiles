@@ -9,8 +9,11 @@ set -e
 
 ANIMATION_DIR=~/scripts/startup
 
-sudo cp ~/ascii-art/polyOS/caligraphy.txt /usr/local/share/ascii-art/boot.txt
-sudo cp ~/ascii-art/gecko.txt /usr/local/share/ascii-art/login.txt
+SYSTEM_ASCII_ART_DIR=/usr/local/share/ascii-art
+
+sudo mkdir -p $SYSTEM_ASCII_ART_DIR
+sudo cp ~/ascii-art/polyOS/caligraphy.txt $SYSTEM_ASCII_ART_DIR/boot.txt
+sudo cp ~/ascii-art/gecko.txt $SYSTEM_ASCII_ART_DIR/login.txt
 
 sudo cp ~/scripts/startup/formatted-issue /usr/local/share/.
 
