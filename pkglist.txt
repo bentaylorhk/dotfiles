@@ -40,6 +40,7 @@ python-pydantic
 python-fastapi
 python-redis
 python-requests
+python-rich
 python-sqlalchemy
 
 # Languages
