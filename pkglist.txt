@@ -15,6 +15,11 @@ i3-wm
 i3status
 rofi
 
+# Audio
+pulseaudio
+pulseaudio-alsa
+pavucontrol
+
 # UI Applications
 alacritty
 firefox
