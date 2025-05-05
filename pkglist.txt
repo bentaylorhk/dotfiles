@@ -13,6 +13,7 @@ xorg-server
 xorg-xinit
 i3-wm
 i3status
+perl-anyevent-i3
 rofi
 
 # Audio
@@ -20,10 +21,11 @@ pulseaudio
 pulseaudio-alsa
 pavucontrol
 
-# UI Applications
+# GUI Applications
 alacritty
 firefox
 spotify-launcher
+feh
 
 # CLI Tools
 htop
