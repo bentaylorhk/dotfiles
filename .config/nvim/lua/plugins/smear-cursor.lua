@@ -2,18 +2,16 @@
 -- 2025
 
 return {
-    "sphamba/smear-cursor.nvim",
-    --enabled = false,
-    opts = {
-        {
-            -- Match grubbox light fg
-            --cursor_color = "#654735",
-            cursor_color = nil,
-            --stiffness = 0.6,
-            --trailing_stiffness = 0.1,
-            trailing_exponent = 1,
-            smear_between_neighbor_lines = false,
-            --gamma = 1,
-        },
+  "sphamba/smear-cursor.nvim",
+  opts = {
+    {
+      cursor_color = nil,
+      --stiffness = 0.3,
+      --trailing_stiffness = 0.1,
+      --trailing_exponent = 5,
+      smear_between_neighbor_lines = false,
+      hide_target_hack = true,
+      --gamma = 1,
     },
+  },
 }

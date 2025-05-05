@@ -61,6 +61,8 @@ nano
 # LSPs/Linters/Formatters
 tree-sitter-cli
 luarocks
+#TODO: is this not masons job?
+luacheck
 
 # Utils
 autorandr
