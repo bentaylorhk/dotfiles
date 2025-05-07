@@ -15,6 +15,7 @@ i3-wm
 i3status
 perl-anyevent-i3
 rofi
+xclip
 
 # Audio
 pulseaudio
@@ -49,11 +50,17 @@ python-redis
 python-requests
 python-rich
 python-sqlalchemy
+python-neovim
 
 # Languages
 ruby
 rust
 nodejs
+go
+jdk-openjdk
+julia
+php
+composer
 
 # Editors
 vim
@@ -72,11 +79,13 @@ texlive-basic
 texlive-latex
 texlive-fontsrecommended
 texlive-latexrecommended
+texlive-latexextra
 texlive-pictures
 texlive-pstricks
+texlive-binextra
+biber
 
 # Utils
-autorandr
 debugedit
 fd
 git
@@ -89,7 +98,12 @@ which
 zip
 man
 fakeroot
-xclip
+wget
+lazygit
+autorandr
+imagemagick
+kitty
+fzf
 
 # Art/Decor
 neofetch
