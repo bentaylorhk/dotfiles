@@ -4,7 +4,8 @@
 return {
 
   {
-    "williamboman/mason.nvim",
+    "mason-org/mason.nvim",
+    version = "1.11.0", -- pinned after major breaking version
     opts = {
       ensure_installed = {
 
@@ -21,7 +22,8 @@ return {
   },
 
   {
-    "williamboman/mason-lspconfig.nvim",
+    "mason-org/mason-lspconfig.nvim",
+    version = "1.32.0", -- pinned after major breaking version
     opts = {
       ensure_installed = {
         -- LSP Servers
