@@ -65,6 +65,15 @@ tree-sitter-cli
 luarocks
 #TODO: is this not masons job?
 luacheck
+nix
+
+# LaTeX
+texlive-basic
+texlive-latex
+texlive-fontsrecommended
+texlive-latexrecommended
+texlive-pictures
+texlive-pstricks
 
 # Utils
 autorandr
