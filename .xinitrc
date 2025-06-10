@@ -43,7 +43,7 @@ pulseaudio --start &
 # 'xrandr' modes aren't preserved by autorandr, so any
 # modes for specific machines are defined here
 if [ "$(cat /etc/hostname)" = "polyphonic-1" ]; then
-  xrandr --newmode "320x240_60.00" 6.00 320 328 360 400 240 243 247 253 -hsync +vsync
+  xrandr --newmode "320x240_60.00" 6.08 320 328 360 400 240 243 247 253 -HSync +VSync
   xrandr --addmode DVI-0 320x240_60.00
 fi
 

@@ -1,26 +1,39 @@
 # See this wiki page for more info:
 # https://github.com/dylanaraps/neofetch/wiki/Customizing-Info
 print_info() {
-  #info title
-  prin "ben @ polyphonic-1"
+  info title
   info underline
 
   prin "OS" "polyOS"
+  #info "Host" model
   info "Kernel" kernel
-  info "Uptime" uptime
+  #info "Uptime" uptime
   info "Packages" packages
   info "Shell" shell
   info "Resolution" resolution
-  info "DE" de
+  #info "DE" de
   info "WM" wm
-  prin "Theme" "Choi Hung"
-  info "Terminal" term
-  prin "Font" "scientifica"
+  #info "WM Theme" wm_theme
+  #info "Theme" theme
+  #info "Icons" icons
+  #info "Terminal" term
+  info "Terminal Font" term_font
   info "CPU" cpu
-  info "MB" model
   info "GPU" gpu
-  #info "Memory" memory
+  info "Memory" memory
   info "Disk" disk
+
+  # info "GPU Driver" gpu_driver  # Linux/macOS only
+  #info "CPU Usage" cpu_usage
+  #info "Disk" disk
+  #info "Battery" battery
+  #info "Font" font
+  # info "Song" song
+  # [[ "$player" ]] && prin "Music Player" "$player"
+  #info "Local IP" local_ip
+  #info "Public IP" public_ip
+  # info "Users" users
+  # info "Locale" locale  # This only works on glibc systems.
 
   info cols
 }
@@ -168,7 +181,7 @@ speed_type="bios_limit"
 # Example:
 # on:    'i7-6500U (4) @ 3.1GHz'
 # off:   'i7-6500U (4) @ 3.100GHz'
-speed_shorthand="on"
+speed_shorthand="off"
 
 # Enable/Disable CPU brand in output.
 #
@@ -235,7 +248,7 @@ cpu_temp="off"
 # Example:
 # on:  'AMD HD 7950'
 # off: 'HD 7950'
-gpu_brand="on"
+gpu_brand="off"
 
 # Which GPU to display
 #
@@ -254,7 +267,7 @@ gpu_brand="on"
 #
 # integrated:
 #   GPU1: Intel Integrated Graphics
-gpu_type="dedicated"
+gpu_type="all"
 
 # Resolution
 
@@ -548,7 +561,7 @@ color_blocks="on"
 # Default:  '5'
 # Values:   'num'
 # Flag:     --block_width
-block_width=6
+block_width=5
 
 # Color block height in lines
 #
