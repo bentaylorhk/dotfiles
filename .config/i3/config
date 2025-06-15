@@ -234,18 +234,7 @@ for_window [class="Alacritty"] border pixel 0
 
 for_window [class="Spotify"] border pixel 0
 
-set $imgs_path "/home/ben/images/dashboard"
-
-# only outputting fullscreen terminal on crt
-workspace 1 output DVI-0
-exec --no-startup-id i3-msg "workspace 1; append_layout /home/ben/.config/i3/crt_terminal.json"
-exec --no-startup-id i3-msg "workspace 1; exec alacritty -o font.size=6 --title crt"
-
-exec --no-startup-id i3-msg "workspace 2; append_layout /home/ben/.config/i3/boot_layout.json"
-exec --no-startup-id i3-msg "workspace 2; exec feh --zoom 70 $imgs_path"
-exec --no-startup-id i3-msg "workspace 2; exec alacritty --title cbonsai -e sh -c 'cbonsai -li'"
-exec --no-startup-id i3-msg "workspace 2; exec alacritty --title neofetch -e sh -c 'echo && echo && neofetch && tput civis && read -r -s'"
-exec --no-startup-id i3-msg "workspace 2; exec alacritty --title htop -e sh -c 'htop'"
+exec --no-startup-id i3-msg "exec /home/ben/.config/i3/load_layout.sh"
 
 # -- POLYPHONIC --
 # exec --no-startup-id i3-msg "workspace 1; append_layout /home/ben/.config/i3/polyphonic.json"
