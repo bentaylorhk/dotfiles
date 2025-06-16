@@ -12,7 +12,7 @@ base
 xorg-server
 xorg-xinit
 i3-wm
-i3status
+polybar
 perl-anyevent-i3
 rofi
 xclip

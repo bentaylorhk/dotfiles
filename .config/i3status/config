@@ -28,8 +28,7 @@ general {
 #order += "ipv6"
 order += "battery 0"
 order += "read_file hostname"
-order += "cpu_temperature 0"
-order += "cpu_temperature 1"
+#order += "exec cpu_temp"
 order += "wireless _first_"
 order += "ethernet _first_"
 # order += "disk /"
@@ -53,19 +52,10 @@ ethernet _first_ {
         format_down = " E: down "
 }
 
-# gpd-pocket-3-polyos
-cpu_temperature 0 {
-        format = " CPU: %degrees °C "
-#        max_threshold = 80
-        path = "/sys/devices/platform/coretemp.0/hwmon/hwmon5/temp3_input"
-}
-
-# atx-polyos
-cpu_temperature 1 {
-        format = " CPU: %degrees °C "
-#        max_threshold = 80
-        path = "/sys/class/hwmon/hwmon4/temp1_input"
-}
+#exec cpu_temp {
+#    command = "/home/ben/.config/i3status/cpu_temp.sh"
+#    interval = 10
+#}
 
 battery 0 {
         format = " %status %percentage ·"

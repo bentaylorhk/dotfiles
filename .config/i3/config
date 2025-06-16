@@ -224,6 +224,8 @@ bar {
   }
 }
 
+exec_always --no-startup-id pkill polybar; polybar mybar &
+
 gaps inner 10
 
 default_border pixel 5
