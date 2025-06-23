@@ -16,6 +16,7 @@ polybar
 perl-anyevent-i3
 rofi
 xclip
+xautolock
 
 # Audio
 pulseaudio

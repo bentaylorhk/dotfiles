@@ -198,32 +198,6 @@ client.unfocused        $fg    $fg    $bg   $fg    $fg
 client.urgent           $red   $red   $bg   $red   $red
 client.placeholder      $fg    $fg    $bg   $fg    $fg
 
-bar {
-  status_command i3status
-  colors {
-    background $bg
-    statusline $fg
-    separator  $fg
-
-    # workspaces section
-    #                  border  backgr. text
-
-    # gruvbox
-    #focused_workspace  $bg     $green  $bg
-    #inactive_workspace $bg     $fg     $bg
-    #active_workspace   $bg     $fg     $bg
-    #urgent_workspace   $red    $red    $bg
-    #binding_mode       $red    $fg     $bg
-
-    # choi hung
-    focused_workspace  $bg     $bg     $green
-    inactive_workspace $bg     $bg     $fg
-    active_workspace   $bg     $bg     $fg
-    urgent_workspace   $bg     $bg     $red
-    binding_mode       $bg     $bg     $red
-  }
-}
-
 exec_always --no-startup-id pkill polybar; polybar mybar &
 
 gaps inner 10
