@@ -24,6 +24,7 @@ fi
 
 i3-msg "workspace $WORKSPACE"
 i3-msg "append_layout /home/ben/.config/i3/boot_layout.json"
+sleep 1
 feh --zoom $FEH_ZOOM "$IMGS_PATH" &
 alacritty --title cbonsai -e sh -c 'cbonsai -li' &
 alacritty --title neofetch -e sh -c 'echo && echo && neofetch && tput civis && read -r -s' &
