@@ -198,7 +198,8 @@ client.unfocused        $fg    $fg    $bg   $fg    $fg
 client.urgent           $red   $red   $bg   $red   $red
 client.placeholder      $fg    $fg    $bg   $fg    $fg
 
-exec_always --no-startup-id pkill polybar; polybar mybar &
+# polybar launch script for multiple monitors
+exec_always --no-startup-id /home/ben/.config/polybar/launch.sh
 
 gaps inner 10
 
