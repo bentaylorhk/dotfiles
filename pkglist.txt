@@ -18,9 +18,11 @@ rofi
 xclip
 xautolock
 
-# Audio
-pulseaudio
-pulseaudio-alsa
+# Audio (pipewire with pulse interface)
+pipewire
+pipewire-pulse 
+pipewire-alsa 
+pipewire-jack
 pavucontrol
 
 # GUI Applications
