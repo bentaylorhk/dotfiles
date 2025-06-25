@@ -8,9 +8,9 @@ IMGS_PATH=$HOME/images/dashboard
 WORKSPACE=1
 
 if xrandr | grep -q "^DVI-0 connected"; then
-    i3-msg "workspace $WORKSPACE; move workspace to output DVI-0"
     i3-msg "workspace $WORKSPACE"
-    i3-msg "append_layout /path/to/your/workspace1_layout.json"
+    i3-msg "append_layout $HOME/.config/i3/crt_terminal.json"
+    sleep 0.1
     alacritty -o font.size=6 --title crt &
 
     WORKSPACE=2
@@ -23,8 +23,8 @@ else
 fi
 
 i3-msg "workspace $WORKSPACE"
-i3-msg "append_layout /home/ben/.config/i3/boot_layout.json"
-sleep 1
+i3-msg "append_layout $HOME/.config/i3/boot_layout.json"
+sleep 0.1
 feh --zoom $FEH_ZOOM "$IMGS_PATH" &
 alacritty --title cbonsai -e sh -c 'cbonsai -li' &
 alacritty --title neofetch -e sh -c 'echo && echo && neofetch && tput civis && read -r -s' &

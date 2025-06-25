@@ -199,7 +199,7 @@ client.urgent           $red   $red   $bg   $red   $red
 client.placeholder      $fg    $fg    $bg   $fg    $fg
 
 # polybar launch script for multiple monitors
-exec_always --no-startup-id /home/ben/.config/polybar/launch.sh
+exec_always --no-startup-id ~/.config/polybar/launch.sh
 
 gaps inner 10
 
@@ -211,7 +211,8 @@ for_window [class="Alacritty"] border pixel 0
 
 for_window [class="Spotify"] border pixel 0
 
-exec --no-startup-id i3-msg "exec /home/ben/.config/i3/load_layout.sh"
+workspace 1 output DVI-0
+exec --no-startup-id ~/.config/i3/load_layout.sh
 
 # -- POLYPHONIC --
 # exec --no-startup-id i3-msg "workspace 1; append_layout /home/ben/.config/i3/polyphonic.json"
