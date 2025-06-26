@@ -8,7 +8,7 @@
 
 # To get this script to run without a sudo prompt, add the
 # following line to sudoers with 'sudo visudo'
-# <username> ALL=(ALL) NOPASSWD: /path/to/update-polyos.sh
+# <username> ALL=(ALL) NOPASSWD: /path/to/update_polyos.sh
 
 set -e
 
@@ -24,6 +24,12 @@ if [[ $EUID -ne 0 ]]; then
 
   # Running whole script as root, then exiting
   exec sudo bash "$0" "$PACKAGE_FILE"
+fi
+
+# Check if running as root after sudo promotion
+if [[ $EUID -ne 0 ]]; then
+  echo "Failed to obtain root privileges. Exiting."
+  exit 1
 fi
 
 # Check if package list is provided
@@ -55,7 +61,19 @@ while IFS= read -r line; do
   fi
 done <"$PACKAGE_FILE"
 
+set +e
 echo "Installing user packages..."
 pacman -S --needed --noconfirm "${PACKAGES[@]}"
 
 # TODO: Ensure polyai is installed with pip
+
+# Print success or failure message and wait for user input
+if [[ $? -eq 0 ]]; then
+  echo ""
+  echo "Update and package installation completed successfully."
+else
+  echo ""
+  echo "Update or package installation failed."
+fi
+
+read -p $'Press Enter to continue...'
