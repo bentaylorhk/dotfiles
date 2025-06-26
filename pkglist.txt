@@ -16,7 +16,9 @@ polybar
 perl-anyevent-i3
 rofi
 xclip
-xautolock
+
+# Screensaver
+xss-lock
 
 # Audio (pipewire with pulse interface)
 pulseaudio
