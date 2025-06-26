@@ -19,10 +19,8 @@ xclip
 xautolock
 
 # Audio (pipewire with pulse interface)
-pipewire
-pipewire-pulse 
-pipewire-alsa 
-pipewire-jack
+pulseaudio
+pulseaudio-alsa
 pavucontrol
 
 # GUI Applications
