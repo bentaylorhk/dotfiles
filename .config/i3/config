@@ -202,6 +202,15 @@ client.placeholder      $fg    $fg    $bg   $fg    $fg
 # polybar launch script for multiple monitors
 exec_always --no-startup-id ~/.config/polybar/launch.sh
 
+# polyphonic animation as screensaver, after 300 seconds, second 5 is ignored
+# TODO: implement, been quite tricky
+#exec --no-startup-id xset s 300 5
+#exec --no-startup-id xset s noblank
+#exec --no-startup-id xset s noexpose
+#exec --no-startup-id xset -dpms
+#exec --no-startup-id xscreensaver -no-splash
+
+
 gaps inner 10
 
 default_border pixel 5

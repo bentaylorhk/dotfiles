@@ -18,7 +18,7 @@ rofi
 xclip
 
 # Screensaver
-xss-lock
+xscreensaver
 
 # Audio (pipewire with pulse interface)
 pulseaudio
