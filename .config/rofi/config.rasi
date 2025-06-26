@@ -6,8 +6,6 @@
 configuration {
     modi: "window,drun,run";
 
-    font: "scientifica 16";
-
     /* Centred window */
     location: 0;
 
@@ -21,41 +19,9 @@ configuration {
     combi-modi: "window,drun";
 
     /* How desktop entries are displayed in drun mode */
-    /*drun-display-format: "<i>{name}</i>";*/
     drun-display-format: "{name}";
+
+    display-drun: "polyOS";
 }
 
-window {
-    border: 5;
-    padding: 3;
-    width: 425px;
-}
-
-listview {
-    lines: 7;
-    spacing: 0;
-    border: 0;
-    fixed-height: false;
-    scrollbar: false;
-    disable-count: true;
-}
-
-prompt {
-  enabled: true;
-}
-
-entry {
-    font: "scientifica Italic 16";
-    placeholder: "search your soul...";
-    horizontal-align: 0.5;
-    hide-cursor-on-empty: true;
-    cursor-width: 0px;
-}
-
-textbox-prompt-colon {
-    str: "";
-}
-
-element-text {
-    horizontal-align: 0.5;
-}
+@theme "~/.config/rofi/themes/choihung.rasi"
