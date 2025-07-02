@@ -2,7 +2,7 @@
 # 2025
 
 # List of pacman packages used by polyOS
-# Can be installed with ~/scripts/update-polyos.sh
+# Can be installed with ~/scripts/update_polyos.sh
 
 # Core
 arch-install-scripts
