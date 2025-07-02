@@ -14,6 +14,8 @@ fi
 
 FONT_NAME="$1"
 
+FONT_SIZE=21
+
 SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
 
 echo "Searching for $FONT_NAME font..."
@@ -29,11 +31,5 @@ echo "Found $FONT_NAME font at: $FONT_PATH"
 # Generate the PF2 font file in the script directory
 OUTPUT_FILE="$SCRIPT_DIR/theme/$FONT_NAME.pf2"
 echo "Generating GRUB font: $OUTPUT_FILE"
-grub-mkfont --output="$OUTPUT_FILE" --size=16 "$FONT_PATH"
+grub-mkfont --output="$OUTPUT_FILE" --size=$FONT_SIZE "$FONT_PATH"
 
-if [ -f "$OUTPUT_FILE" ]; then
-    echo "Successfully created $FONT_NAME.pf2 font file!"
-else
-    echo "Error: Failed to create font file." >&2
-    exit 1
-fi
