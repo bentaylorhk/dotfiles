@@ -1,23 +1,38 @@
-#! /bin/sh
+#!/bin/sh
 
 # Benjamin Michael Taylor (bentaylorhk)
 # 2023 - 2025
 
 set -e
 
-# Check if running as root/sudo
+FONT_NAME="scientifica"
+
+SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
+
 if [ "$(id -u)" -ne 0 ]; then
     echo "Error: This script must be run as root or with sudo." >&2
     echo "Usage: sudo $0" >&2
     exit 1
 fi
 
-# Find Windows partition using os-prober
+FONT_FILE="$SCRIPT_DIR/theme/$FONT_NAME.pf2"
+"$SCRIPT_DIR/make_font.sh" "$FONT_NAME"
+
+DEFAULT_PATH="/etc/default/grub"
+echo "Copying GRUB default configuration to $DEFAULT_PATH..."
+cp $SCRIPT_DIR/default "$DEFAULT_PATH"
+
+THEME_DIR="/boot/grub/themes/polyos"
+echo "Copying theme to $THEME_DIR"
+mkdir -p $THEME_DIR
+cp -r $SCRIPT_DIR/theme/* $THEME_DIR/.
+
 echo "Searching for Windows partition using os-prober..."
 WINDOWS_ENTRY=$(os-prober 2>/dev/null | grep -i "windows" | head -n1 || true)
 
 if [ -n "$WINDOWS_ENTRY" ]; then
-    # Extract partition from os-prober output (format: /dev/nvmeXnYpZ@/efi/Microsoft/Boot/bootmgfw.efi:Windows Boot Manager:Windows:efi)
+    # Extract partition from os-prober output 
+    # (format: /dev/nvmeXnYpZ@/efi/Microsoft/Boot/bootmgfw.efi:Windows Boot Manager:Windows:efi)
     WINDOWS_PARTITION=$(echo "$WINDOWS_ENTRY" | cut -d'@' -f1)
     
     if [ -b "$WINDOWS_PARTITION" ]; then
@@ -35,11 +50,7 @@ else
     exit 1
 fi
 
-# Generate GRUB configuration
-echo "Generating GRUB configuration..."
 grub-mkconfig -o /boot/grub/grub.cfg
-echo "GRUB configuration updated successfully!"
 
-# Unmount the Windows partition
 echo "Unmounting /windows"
 umount /windows

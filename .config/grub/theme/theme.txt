@@ -1,0 +1,23 @@
+# Benjamin Michael Taylor (bentaylorhk)
+# 2025
+
+title-text: "EXAMPLE TITLE\nSECOND LINE"
+
++ boot_menu {
+    left = 0%
+    top = 40%
+    width = 100%
+    height = 20%
+    item_height = 60
+    item_padding = 20
+    font = "scientifica.pf2"
+    font_size = 48
+    color_normal = "ffffff"
+    color_highlight = "00ffff"
+    align = "center"
+    margin = 0
+    item_icon_space = 0
+    item_icon = ""
+    item_style = "bold"
+    item_spacing = 10
+}
