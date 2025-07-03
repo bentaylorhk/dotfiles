@@ -10,124 +10,174 @@ terminal-width: "100%"
 terminal-height: "100%"
 
 + boot_menu {
-    left = 300
-    top = 200
-    width = 300
-    height = 200
-    item_height = 60
-    item_padding = 20
+    left = 7%+400
+    top = 12%+240
+    width = 500
+    height = 50%
     font = "scientifica.pf2"
-    color_normal = "#ffffff"
-    color_highlight = "#b5cfa7"
+    item_color = "#ffffff"
+    align = "center"
+    selected_item_color = "#b5cfa7"
     margin = 0
-    item_icon_space = 0
-    item_icon = ""
-    item_spacing = 10
+    item_height = 20
+    item_padding = 0
+    item_spacing = 0
+    scrollbar_width = 0
 }
 
 + vbox {
-  left = 200
-  width = 100
-  top = 200
-  height = 350
+  left = 7%+400
+  width = 500
+  top = 12%+600
+  height = 60
   + label {
-    text = "                  A"
+    text = "GRUB"
     font = "scientifica.pf2"
     color = "#ffffff"
+    align = "center"
   }
   + label {
-    text = "                 ANA"
+    text = "===="
     font = "scientifica.pf2"
     color = "#ffffff"
+    align = "center"
+  }
+}
+
++ label {
+  left = 7%+400
+  width = 500
+  top = 12%+400
+  height = 20
+  text = "@TIMEOUT_NOTIFICATION@"
+  font = "scientifica.pf2"
+  color = "#b5cfa7"
+  align = "center"
+}
+
++ vbox {
+  left = 7%
+  width = 400
+  top = 12%
+  height = 50%
+  + label {
+    text = "A"
+    font = "scientifica.pf2"
+    color = "#ffffff"
+    align = "center"
   }
   + label {
-    text = "                AWWWA"
+    text = "ANA"
     font = "scientifica.pf2"
     color = "#ffffff"
+    align = "center"
   }
   + label {
-    text = "               AWWWWWA"
+    text = "AWWWA"
     font = "scientifica.pf2"
     color = "#ffffff"
+    align = "center"
   }
   + label {
-    text = "              ANNN%%NNNA"
+    text = "AWWWWWA"
     font = "scientifica.pf2"
     color = "#ffffff"
+    align = "center"
   }
   + label {
-    text = "     .ada.    NNN%%!%%NNN    .ada."
+    text = "ANNN%%NNNA"
     font = "scientifica.pf2"
     color = "#ffffff"
+    align = "center"
   }
   + label {
-    text = "  .aANNNNAA  ANN%%!%%!%%NNA  AANNNNAa."
+    text = ".ada.    NNN%%!%%NNN    .ada."
     font = "scientifica.pf2"
     color = "#ffffff"
+    align = "center"
+  }
+  + label {
+    text = ".aANNNNAA  ANN%%!%%!%%NNA  AANNNNAa."
+    font = "scientifica.pf2"
+    color = "#ffffff"
+    align = "center"
   }
   + label {
     text = "<aANNNWWWWWWVi.am@s@ma.iVWWWWWWNNNAa>"
     font = "scientifica.pf2"
     color = "#ffffff"
+    align = "center"
   }
   + label {
-    text = "  '~NNWWWWWWWA V ~*~ V AWWWWWWWNN~'"
+    text = "'~NNWWWWWWWA V ~*~ V AWWWWWWWNN~'"
     font = "scientifica.pf2"
     color = "#ffffff"
+    align = "center"
   }
   + label {
-    text = "    '~GGGGGGLV A     A VJGGGGGG~'"
+    text = "'~GGGGGGLV A     A VJGGGGGG~'"
     font = "scientifica.pf2"
     color = "#ffffff"
+    align = "center"
   }
   + label {
-    text = "       '~~~*' Ai ^ ^ iA '*~~~'"
+    text = "'~~~*' Ai ^ ^ iA '*~~~'"
     font = "scientifica.pf2"
     color = "#ffffff"
+    align = "center"
   }
   + label {
-    text = "       .addamAA :~^~: AAmadda."
+    text = ".addamAA :~^~: AAmadda."
     font = "scientifica.pf2"
     color = "#ffffff"
+    align = "center"
   }
   + label {
-    text = "      AAMmMmmVVi ::: iVVmmMmMAA"
+    text = "AAMmMmmVVi ::: iVVmmMmMAA"
     font = "scientifica.pf2"
     color = "#ffffff"
+    align = "center"
   }
   + label {
-    text = "     AmMmMmMV VV a*a VV VMmMmMmA"
+    text = "AmMmMmMV VV a*a VV VMmMmMmA"
     font = "scientifica.pf2"
     color = "#ffffff"
+    align = "center"
   }
   + label {
-    text = "    6MMmMmMV   ~VVAVV~   VMmMmMM6"
+    text = "6MMmMmMV   ~VVAVV~   VMmMmMM6"
     font = "scientifica.pf2"
     color = "#ffffff"
+    align = "center"
   }
   + label {
-    text = "    AMMMMMB      ~ ~      GMMMMMA"
+    text = "AMMMMMB      ~ ~      GMMMMMA"
     font = "scientifica.pf2"
     color = "#ffffff"
+    align = "center"
   }
   + label {
-    text = "    MMMMMJ                 UMMMMM"
+    text = "MMMMMJ                 UMMMMM"
     font = "scientifica.pf2"
     color = "#ffffff"
+    align = "center"
   }
   + label {
-    text = "    MMMM~                   ~MMMM"
+    text = "MMMM~                   ~MMMM"
     font = "scientifica.pf2"
     color = "#ffffff"
+    align = "center"
   }
   + label {
-    text = "    VMV                      VMV"
+    text = "VMV                      VMV"
     font = "scientifica.pf2"
     color = "#ffffff"
+    align = "center"
   }
   + label {
-    text = "     V                        V"
+    text = "V                        V"
     font = "scientifica.pf2"
     color = "#ffffff"
+    align = "center"
   }
 }
