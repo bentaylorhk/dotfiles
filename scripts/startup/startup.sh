@@ -6,7 +6,7 @@
 set -e
 
 # Doubling font size for login readability
-setfont -d
+setfont -d scientifica.psf
 
 # Boot splash
 clear
