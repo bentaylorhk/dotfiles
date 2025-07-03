@@ -3,24 +3,42 @@
 
 __style_break="\[\e[m\]"
 
-# Gradient polyOS
-__p="\[\e[38;5;196m\]p"
-__o="\[\e[38;5;202m\]o"
-__l="\[\e[38;5;208m\]l"
-__y="\[\e[38;5;214m\]y"
-__O="\[\e[38;5;220m\]O"
-__S="\[\e[38;5;226m\]S"
+__os_name="polyOS"
 
-#__os="[ $__p$__o$__l$__y$__O$__S$__style_break ]"
-__os="[ \[\e[34m\]polyOS$__style_break ]"
+__gradients=(
+    "214 220 221 222 223 224" # Yellow to pale yellow
+    "160 166 172 214 222 229" # Red to cream
+    "132 96 102 103 145 231"   # Purple to white
+)
+__gradient=(${__gradients[$RANDOM % ${#__gradients[@]}]})
+
+# Make gradient polyOS
+__os="[ "
+for (( i=0; i<${#__os_name}; i++ )); do
+    __char="${__os_name:$i:1}"
+    __colour=${__gradient[$i]}
+    __os+="\[\e[38;5;${__colour}m\]${__char}"
+done
+
+__os+="$__style_break ]"
+#__os="[ \[\e[34m\]polyOS$__style_break ]"
 
 #__username="\[\e[38;5;250m\]\u$__style_break"
-__username="\[\e[37m\]\u$__style_break"
+__username="\[\e[32m\]\u$__style_break"
 
 if [ "`id -u`" -eq 0 ]; then
     __symbol="#"
 else
     __symbol="$"
 fi
+
+__error_prompt() {
+    local exit_code=$?
+    if [ $exit_code -ne 0 ]; then
+        echo -e "\e[31m$exit_code\e[m"
+    fi
+}
+
+PROMPT_COMMAND="__error_prompt"
 
 PS1="$__os $__username \w $__symbol "
