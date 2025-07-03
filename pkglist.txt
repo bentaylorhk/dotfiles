@@ -44,6 +44,9 @@ cmake
 make
 ninja
 
+# Libraries
+cli11
+
 # Python
 python
 python-openai
