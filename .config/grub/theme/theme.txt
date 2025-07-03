@@ -1,23 +1,133 @@
 # Benjamin Michael Taylor (bentaylorhk)
 # 2025
 
-title-text: "EXAMPLE TITLE\nSECOND LINE"
+title-text: ""
+title-color: "#000000"
+desktop-color: "#000000"
+terminal-left: "0%"
+terminal-top: "0%"
+terminal-width: "100%"
+terminal-height: "100%"
 
 + boot_menu {
-    left = 0%
-    top = 40%
-    width = 100%
-    height = 20%
+    left = 300
+    top = 200
+    width = 300
+    height = 200
     item_height = 60
     item_padding = 20
     font = "scientifica.pf2"
-    font_size = 48
-    color_normal = "ffffff"
-    color_highlight = "00ffff"
-    align = "center"
+    color_normal = "#ffffff"
+    color_highlight = "#b5cfa7"
     margin = 0
     item_icon_space = 0
     item_icon = ""
-    item_style = "bold"
     item_spacing = 10
+}
+
++ vbox {
+  left = 200
+  width = 100
+  top = 200
+  height = 350
+  + label {
+    text = "                  A"
+    font = "scientifica.pf2"
+    color = "#ffffff"
+  }
+  + label {
+    text = "                 ANA"
+    font = "scientifica.pf2"
+    color = "#ffffff"
+  }
+  + label {
+    text = "                AWWWA"
+    font = "scientifica.pf2"
+    color = "#ffffff"
+  }
+  + label {
+    text = "               AWWWWWA"
+    font = "scientifica.pf2"
+    color = "#ffffff"
+  }
+  + label {
+    text = "              ANNN%%NNNA"
+    font = "scientifica.pf2"
+    color = "#ffffff"
+  }
+  + label {
+    text = "     .ada.    NNN%%!%%NNN    .ada."
+    font = "scientifica.pf2"
+    color = "#ffffff"
+  }
+  + label {
+    text = "  .aANNNNAA  ANN%%!%%!%%NNA  AANNNNAa."
+    font = "scientifica.pf2"
+    color = "#ffffff"
+  }
+  + label {
+    text = "<aANNNWWWWWWVi.am@s@ma.iVWWWWWWNNNAa>"
+    font = "scientifica.pf2"
+    color = "#ffffff"
+  }
+  + label {
+    text = "  '~NNWWWWWWWA V ~*~ V AWWWWWWWNN~'"
+    font = "scientifica.pf2"
+    color = "#ffffff"
+  }
+  + label {
+    text = "    '~GGGGGGLV A     A VJGGGGGG~'"
+    font = "scientifica.pf2"
+    color = "#ffffff"
+  }
+  + label {
+    text = "       '~~~*' Ai ^ ^ iA '*~~~'"
+    font = "scientifica.pf2"
+    color = "#ffffff"
+  }
+  + label {
+    text = "       .addamAA :~^~: AAmadda."
+    font = "scientifica.pf2"
+    color = "#ffffff"
+  }
+  + label {
+    text = "      AAMmMmmVVi ::: iVVmmMmMAA"
+    font = "scientifica.pf2"
+    color = "#ffffff"
+  }
+  + label {
+    text = "     AmMmMmMV VV a*a VV VMmMmMmA"
+    font = "scientifica.pf2"
+    color = "#ffffff"
+  }
+  + label {
+    text = "    6MMmMmMV   ~VVAVV~   VMmMmMM6"
+    font = "scientifica.pf2"
+    color = "#ffffff"
+  }
+  + label {
+    text = "    AMMMMMB      ~ ~      GMMMMMA"
+    font = "scientifica.pf2"
+    color = "#ffffff"
+  }
+  + label {
+    text = "    MMMMMJ                 UMMMMM"
+    font = "scientifica.pf2"
+    color = "#ffffff"
+  }
+  + label {
+    text = "    MMMM~                   ~MMMM"
+    font = "scientifica.pf2"
+    color = "#ffffff"
+  }
+  + label {
+    text = "    VMV                      VMV"
+    font = "scientifica.pf2"
+    color = "#ffffff"
+  }
+  + label {
+    text = "     V                        V"
+    font = "scientifica.pf2"
+    color = "#ffffff"
+  }
 }
