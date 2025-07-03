@@ -108,3 +108,4 @@ autorandr
 imagemagick
 kitty
 fzf
+patch

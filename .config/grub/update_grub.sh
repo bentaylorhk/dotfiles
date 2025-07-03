@@ -15,8 +15,12 @@ if [ "$(id -u)" -ne 0 ]; then
     exit 1
 fi
 
-FONT_FILE="$SCRIPT_DIR/theme/$FONT_NAME.pf2"
-"$SCRIPT_DIR/make_font.sh" "$FONT_NAME"
+FONT_FILE="/home/ben/fonts/scientifica/pf2/scientifica.pf2"
+if [ ! -f "$FONT_FILE" ]; then
+    echo "Error: Font file not found at: $FONT_FILE" >&2
+    exit 1
+fi
+echo "Using font file: $FONT_FILE"
 
 DEFAULT_PATH="/etc/default/grub"
 echo "Copying GRUB default configuration to $DEFAULT_PATH..."
@@ -26,6 +30,7 @@ THEME_DIR="/boot/grub/themes/polyos"
 echo "Copying theme to $THEME_DIR"
 mkdir -p $THEME_DIR
 cp -r $SCRIPT_DIR/theme/* $THEME_DIR/.
+cp "$FONT_FILE" "$THEME_DIR/scientifica.pf2"
 
 echo "Searching for Windows partition using os-prober..."
 WINDOWS_ENTRY=$(os-prober 2>/dev/null | grep -i "windows" | head -n1 || true)
