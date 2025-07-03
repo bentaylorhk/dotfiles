@@ -22,8 +22,8 @@ sudo cp $ANIMATION_DIR/startup.sh /usr/local/bin/.
 sudo cp $ANIMATION_DIR/boot-animation /usr/local/bin/.
 sudo cp -r ~/systemd/. /etc/systemd/system/.
 
-sudo chmod +x ~/scripts/right-justify.sh
-sudo cp ~/scripts/right-justify.sh /usr/local/bin/.
+sudo chmod +x ~/scripts/justify.sh
+sudo cp ~/scripts/justify.sh /usr/local/bin/.
 
 sudo systemctl enable startup.service
 sudo systemctl enable getty@tty1.service
