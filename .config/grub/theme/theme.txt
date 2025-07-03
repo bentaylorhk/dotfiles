@@ -7,7 +7,7 @@ desktop-color: "#000000"
 terminal-left: "40%"
 terminal-top: "40%"
 terminal-width: "20%"
-terminal-height: "60%"
+terminal-height: "300"
 
 + label {
   text = "GRUB"
@@ -20,18 +20,29 @@ terminal-height: "60%"
   align = "center"
 }
 
++ label {
+  text = "===="
+  left = 40%
+  top = 40%+25
+  width = 20%
+  height = 25
+  font = "scientifica.pf2"
+  color = "#ffffff"
+  align = "center"
+}
+
 + boot_menu {
   left = 40%
-  top = 45%
+  top = 40%+75
   width = 20%
-  height = 10%
+  height = 150
   font = "scientifica.pf2"
   item_color = "#ffffff"
   selected_item_color = "#b5cfa7"
   margin = 0
-  item_height = 20
-  item_padding = 3
-  item_spacing = 1
+  item_height = 25
+  item_padding = 0
+  item_spacing = 0
   align = "center"
   scrollbar_width = 0
 }
@@ -39,7 +50,7 @@ terminal-height: "60%"
 + label {
   id = "__timeout__"
   left = 40%
-  top = 60%
+  top = 40%+250
   width = 20%
   height = 25
   text = "Booting in %d"
@@ -51,7 +62,7 @@ terminal-height: "60%"
 + label {
   text = "[↑/↓] Select - [Enter] Boot"
   left = 40%
-  top = 60%+25
+  top = 40%+275
   width = 20%
   height = 25
   font = "scientifica.pf2"
@@ -62,7 +73,7 @@ terminal-height: "60%"
 + label {
   text = "[E] Edit - [C] Command"
   left = 40%
-  top = 60%+50
+  top = 40%+300
   width = 20%
   height = 25
   font = "scientifica.pf2"
