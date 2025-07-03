@@ -26,6 +26,23 @@ DEFAULT_PATH="/etc/default/grub"
 echo "Copying GRUB default configuration to $DEFAULT_PATH..."
 cp $SCRIPT_DIR/default "$DEFAULT_PATH"
 
+# Get hostname and add specific kernel parameters
+HOSTNAME=$(cat /etc/hostname)
+case "$HOSTNAME" in
+    "atx-polyos")
+        echo "Adding NVMe optimization parameters for atx-polyos..."
+        echo 'GRUB_CMDLINE_LINUX_DEFAULT="quiet splash nvme_core.default_ps_max_latency_us=0 pcie_aspm=off nvme.noacpi=1"' >> "$DEFAULT_PATH"
+        ;;
+    "gpd-pocket-3-polyos")
+        echo "Adding display rotation parameters for gpd-pocket-3-polyos..."
+        echo 'GRUB_CMDLINE_LINUX_DEFAULT="quiet splash fbcon=rotate:1 video=DSI-1:panel_orientation=left_side_up"' >> "$DEFAULT_PATH"
+        ;;
+    *)
+        echo "Using default kernel parameters for $HOSTNAME..."
+        echo 'GRUB_CMDLINE_LINUX_DEFAULT="quiet splash"' >> "$DEFAULT_PATH"
+        ;;
+esac
+
 THEME_DIR="/boot/grub/themes/polyos"
 echo "Copying theme to $THEME_DIR"
 mkdir -p $THEME_DIR
