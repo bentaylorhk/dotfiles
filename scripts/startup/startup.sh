@@ -16,6 +16,7 @@ clear
 echo "" >/etc/issue
 echo "" >>/etc/issue
 echo "Welcome to polyOS!" | /usr/local/bin/justify.sh center >>/etc/issue
+echo "==================" | /usr/local/bin/justify.sh center >>/etc/issue
 echo "" >>/etc/issue
 
 # Injecting login banner
