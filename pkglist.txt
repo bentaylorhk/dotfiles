@@ -46,6 +46,9 @@ ninja
 
 # Libraries
 cli11
+sdl2
+sdl2_ttf
+spdlog
 
 # Python
 python

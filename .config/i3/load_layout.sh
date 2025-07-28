@@ -16,8 +16,12 @@ if xrandr | grep -q "^DVI-0 connected"; then
     WORKSPACE=2
 fi
 
-if [ "$(hostname)" = "gpd-pocket-3-polyos" ]; then
+HOSTNAME=$(cat /etc/hostname)
+
+if [ "$HOSTNAME" = "gpd-pocket-3-polyos" ]; then
     FEH_ZOOM=35
+elif [ "$HOSTNAME" = "atx-polyos" ]; then
+    FEH_ZOOM=40
 else
     FEH_ZOOM=70
 fi
