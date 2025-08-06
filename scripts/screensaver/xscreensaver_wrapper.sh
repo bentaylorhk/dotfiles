@@ -6,14 +6,11 @@
 SCRIPT_DIR="$(dirname "$(realpath "$0")")"
 SCREENSAVER="$SCRIPT_DIR/screensaver_wrapper.sh"
 
-TITLE="Screensaver-$RANDOM"
+while [[ $# -gt 0 ]]; do
+  case "$1" in
+    -window-id) WINID="$2"; shift 2 ;;
+    *) shift ;;
+  esac
+done
 
-alacritty --title "$TITLE" --class Screensaver -e $SCREENSAVER &
-ALACRITTY_PID=$!
-
-sleep 0.5
-
-i3-msg "[title=\"$TITLE\"] fullscreen enable"
-
-wait $ALACRITTY_PID
-
+xterm -fa 'scientifica' -fs 13 -into "$WINID" -e env TERM=xterm-256color -e $SCREENSAVER
