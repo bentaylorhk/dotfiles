@@ -210,6 +210,11 @@ exec_always --no-startup-id ~/.config/polybar/launch.sh
 #exec --no-startup-id xset -dpms
 #exec --no-startup-id xscreensaver -no-splash
 
+# Disable screen sleep
+# TODO: DON'T THINK THIS WAS THE FIX, DOUBLE CHECK NEXT POLYPHONIC!
+exec_always --no-startup-id xset s off
+exec_always --no-startup-id xset -dpms
+exec_always --no-startup-id xset s noblank
 
 gaps inner 10
 
@@ -223,18 +228,3 @@ for_window [class="Spotify"] border pixel 0
 
 workspace 1 output DVI-0
 exec --no-startup-id ~/.config/i3/load_layout.sh
-
-# -- POLYPHONIC --
-# exec --no-startup-id i3-msg "workspace 1; append_layout /home/ben/.config/i3/polyphonic.json"
-# exec --no-startup-id i3-msg "workspace 1; exec alacritty -o font.size=6 -e ~/repos/polyphonic-rsvp/polyphonic_wrapper.sh"
-#
-# exec sleep 1
-
-# exec i3-msg '[title="alacritty"] focus'
-
-# Disable screen sleep
-# DON'T THINK THIS WAS THE FIX, DOUBLE CHECK NEXT POLYPHONIC!
-# exec --no-startup-id xset s off
-# exec --no-startup-id xset -dpms
-# exec --no-startup-id xset s noblank
-

@@ -7,6 +7,19 @@ IMGS_PATH=$HOME/images/dashboard
 
 WORKSPACE=1
 
+IS_POLYPHONIC=1
+if [ "$IS_POLYPHONIC" -eq 1 ]; then
+    i3-msg "workspace $WORKSPACE"
+    i3-msg "append_layout /home/ben/.config/i3/polyphonic.json"
+    alacritty -o font.size=6 -e ~/repos/polymorphism/polymorphism_wrapper.sh
+
+    sleep 1
+
+    i3-msg '[title="alacritty"] focus'
+
+    exit
+fi
+
 if xrandr | grep -q "^DVI-0 connected"; then
     i3-msg "workspace $WORKSPACE"
     i3-msg "append_layout $HOME/.config/i3/crt_terminal.json"
