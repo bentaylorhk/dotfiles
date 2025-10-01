@@ -17,6 +17,9 @@ perl-anyevent-i3
 rofi
 xclip
 
+# Transparent Windows
+picom
+
 # Screensaver
 xscreensaver
 

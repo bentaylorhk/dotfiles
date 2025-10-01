@@ -216,6 +216,10 @@ exec_always --no-startup-id xset s off
 exec_always --no-startup-id xset -dpms
 exec_always --no-startup-id xset s noblank
 
+# Enables window transparency
+# ~/.config/picom/picom.conf
+exec_always --no-startup-id picom
+
 gaps inner 10
 
 default_border pixel 5
