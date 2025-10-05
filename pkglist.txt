@@ -16,6 +16,7 @@ polybar
 perl-anyevent-i3
 rofi
 xclip
+xterm
 
 # Transparent Windows
 picom
@@ -33,6 +34,7 @@ alacritty
 firefox
 spotify-launcher
 feh
+cool-retro-term
 
 # CLI Tools
 htop

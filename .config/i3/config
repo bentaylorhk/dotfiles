@@ -230,5 +230,9 @@ for_window [class="Alacritty"] border pixel 0
 
 for_window [class="Spotify"] border pixel 0
 
+for_window [class="cool-retro-term"] floating enable
+
+for_window [class="crt_test"] floating enable, resize set 1000 600
+
 workspace 1 output DVI-0
 exec --no-startup-id ~/.config/i3/load_layout.sh

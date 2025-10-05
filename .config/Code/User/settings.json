@@ -1,0 +1,52 @@
+{
+  "editor.tabSize": 4,
+  "editor.formatOnSave": true,
+  "editor.rulers": [
+    80,
+    120
+  ],
+  "editor.wordWrap": "on",
+  "editor.fontFamily": "scientifica, 'Fira Code', 'Courier New', monospace",
+  "editor.fontSize": 17,
+  "editor.fontWeight": "400",
+  "editor.lineHeight": 24,
+  "editor.roundedSelection": false,
+  "editor.cursorStyle": "line",
+  "editor.cursorBlinking": "solid",
+  "editor.minimap.enabled": false,
+  "terminal.integrated.fontFamily": "scientifica, monospace",
+  "terminal.integrated.fontSize": 14,
+  "terminal.integrated.shellArgs.linux": [
+    "-l"
+  ],
+  "files.autoSave": "onFocusChange",
+  "files.trimTrailingWhitespace": true,
+  "files.insertFinalNewline": true,
+  "search.exclude": {
+    "**/node_modules": true,
+    "**/dist": true,
+    "**/build*": true
+  },
+  //"editor.defaultFormatter": "ms-vscode.cpptools",
+  "editor.codeActionsOnSave": {
+    "source.organizeImports": "explicit",
+    "source.fixAll": "explicit"
+  },
+  "git.enableSmartCommit": true,
+  "git.confirmSync": false,
+  "window.titleBarStyle": "custom",
+  "workbench.colorTheme": "Choi Hung",
+  "workbench.iconTheme": "vscode-icons",
+  "workbench.startupEditor": "none",
+  "[python]": {
+    "editor.formatOnSave": true,
+    "python.linting.enabled": true,
+    "python.linting.pylintEnabled": true
+  },
+  "C_Cpp.formatting": "clangFormat",
+  "[cmake]": {
+    "editor.defaultFormatter": "KylinIdeTeam.cmake-intellisence"
+  },
+  "github.copilot.nextEditSuggestions.enabled": true,
+  "extensions.ignoreRecommendations": false
+}
