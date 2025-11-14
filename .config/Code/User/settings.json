@@ -48,5 +48,8 @@
     "editor.defaultFormatter": "KylinIdeTeam.cmake-intellisence"
   },
   "github.copilot.nextEditSuggestions.enabled": true,
-  "extensions.ignoreRecommendations": false
+  "extensions.ignoreRecommendations": false,
+  "[cpp]": {
+    "editor.defaultFormatter": "ms-vscode.cpptools"
+  }
 }

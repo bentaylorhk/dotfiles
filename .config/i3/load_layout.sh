@@ -7,7 +7,7 @@ IMGS_PATH=$HOME/images/dashboard
 
 WORKSPACE=1
 
-IS_POLYPHONIC=0
+IS_POLYPHONIC=1
 if [ "$IS_POLYPHONIC" -eq 1 ]; then
     i3-msg "workspace $WORKSPACE"
     i3-msg "append_layout /home/ben/.config/i3/polyphonic.json"
