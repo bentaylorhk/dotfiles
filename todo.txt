@@ -1,0 +1,10 @@
+btop
+polybar battery animation
+spotify/sound finalisation
+vs code
+neovim
+standard vim config? (choi hung?)
+choi hung
+on screen keyboard (florence)
+convert to pacman.list
+redo grub menu sizing, maybe automate the polyos part?
