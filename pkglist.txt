@@ -18,6 +18,9 @@ rofi
 xclip
 xterm
 
+# Fonts & Symbols
+nerd-fonts
+
 # Transparent Windows
 picom
 

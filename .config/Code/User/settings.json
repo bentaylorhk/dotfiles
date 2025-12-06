@@ -1,42 +1,134 @@
+/**
+ * VSCode settings.json
+ *
+ * Benjamin Michael Taylor
+ * 2025
+ */
 {
-  "editor.tabSize": 4,
-  "editor.formatOnSave": true,
-  "editor.rulers": [
-    80,
-    120
-  ],
-  "editor.wordWrap": "on",
+  // Theme
+  "workbench.colorTheme": "Choi Hung",
+  "workbench.preferredDarkColorTheme": "Choi Hung",
+  "workbench.iconTheme": "vscode-icons",
+  // Font
   "editor.fontFamily": "scientifica, 'Fira Code', 'Courier New', monospace",
   "editor.fontSize": 17,
   "editor.fontWeight": "400",
   "editor.lineHeight": 24,
-  "editor.roundedSelection": false,
-  "editor.cursorStyle": "line",
-  "editor.cursorBlinking": "solid",
-  "editor.minimap.enabled": false,
   "terminal.integrated.fontFamily": "scientifica, monospace",
   "terminal.integrated.fontSize": 14,
+  // UI
+  "editor.cursorStyle": "line",
+  "editor.cursorBlinking": "solid",
+  "editor.wordWrap": "on",
+  "editor.tabSize": 4,
+  "editor.rulers": [
+    80,
+    120
+  ],
+  // Whitespace & Newlines
+  "files.trimTrailingWhitespace": true,
+  "files.insertFinalNewline": true,
+  // Editor behaviour
+  "files.autoSave": "onFocusChange",
+  "editor.formatOnSave": true,
+  "editor.formatOnPaste": false,
+  "editor.formatOnType": false,
+  "editor.roundedSelection": false,
+  "editor.minimap.enabled": true,
+  // Terminal
+  "terminal.integrated.defaultProfile.linux": "bash",
+  "terminal.integrated.shell.linux": "/bin/bash",
   "terminal.integrated.shellArgs.linux": [
     "-l"
   ],
-  "files.autoSave": "onFocusChange",
-  "files.trimTrailingWhitespace": true,
-  "files.insertFinalNewline": true,
+  // File associations
+  "files.associations": {
+    ".env": "dotenv",
+    ".env.*": "dotenv",
+    "Dockerfile.*": "dockerfile",
+    // Arch
+    "PKGBUILD": "makefile",
+    "AURBUILD": "makefile",
+    "PKGINFO": "ini",
+    // Linux
+    "fstab": "conf",
+    "hosts": "conf",
+    "grub": "conf",
+    "sudoers": "conf",
+    "*.service": "ini",
+    "*.socket": "ini",
+    "*.mount": "ini",
+    "*.timer": "ini",
+    "*.path": "ini",
+    "*.desktop": "ini"
+  },
+  "search.useIgnoreFiles": true,
+  "search.useGlobalIgnoreFiles": true,
   "search.exclude": {
+    "**/build": true,
+    "**/*build*": true,
+    "**/.git": true,
+    "**/.svn": true,
+    "**/.hg": true,
+    "**/.DS_Store": true,
+    "**/node_modules": true,
+    "**/bower_components": true,
+    "**/dist": true,
+    "**/out": true,
+    "**/.next": true,
+    "**/.nuxt": true,
+    "**/.parcel-cache": true,
+    "**/.cache": true,
+    "**/target": true,
+    "**/bin": true,
+    "**/obj": true,
+    "**/.venv": true,
+    "**/__pycache__": true,
+    "**/*.pyc": true,
+    "**/.pytest_cache": true,
+    "**/.m2": true,
+    "**/.gradle": true,
+    "**/.cargo": true,
+    "**/vendor": true,
+    "**/.terraform": true,
+    "**/.idea": true,
+    "**/.vscode": true,
+    "**/coverage": true,
+    "**/.nyc_output": true,
+    "**/*.log": true,
+    "**/tmp": true,
+    "**/temp": true,
+    "**/Thumbs.db": true
+  },
+  "files.exclude": {
+    "**/.git": true,
+    "**/.DS_Store": true,
     "**/node_modules": true,
     "**/dist": true,
-    "**/build*": true
+    "**/.venv": true,
+    "**/__pycache__": true
   },
-  //"editor.defaultFormatter": "ms-vscode.cpptools",
+  "files.watcherExclude": {
+    "**/node_modules/**": true,
+    "**/dist/**": true,
+    "**/build/**": true,
+    "**/.git/**": true,
+    "**/.cache/**": true,
+    "**/.parcel-cache/**": true,
+    "**/.next/**": true,
+    "**/.nuxt/**": true,
+    "**/target/**": true
+  },
+  // Formatters
   "editor.codeActionsOnSave": {
     "source.organizeImports": "explicit",
     "source.fixAll": "explicit"
   },
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+
   "git.enableSmartCommit": true,
   "git.confirmSync": false,
   "window.titleBarStyle": "custom",
-  "workbench.colorTheme": "Choi Hung",
-  "workbench.iconTheme": "vscode-icons",
   "workbench.startupEditor": "none",
   "[python]": {
     "editor.formatOnSave": true,
