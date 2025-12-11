@@ -1,18 +1,7 @@
 # Benjamin Michael Taylor (bentaylorhk)
 # 2024 - 2025
 
-# gruvbox
-#set $bg       #f2e5bc
-#set $fg       #654735
-#set $red      #c14a4a
-#set $orange   #c35e0a
-#set $green    #6c782e
-#set $blue     #45707a
-#set $purple   #945e80
-#set $aqua     #4c7a5d
-#set $darkgray #fbf1c7
-
-# choihung
+# Choi Hung
 set $bg       #000000
 set $fg       #ebdbb2
 set $red      #782c17
@@ -161,7 +150,7 @@ bindsym $mod+Shift+c reload
 bindsym $mod+Shift+r restart
 
 # rofi power menu
-bindsym $mod+Shift+e exec --no-startup-id ~/.config/rofi/power_menu.sh
+bindsym $mod+Shift+e exec --no-startup-id ~/.config/rofi/power-menu.sh
 
 # rofi (dmenu alternative)
 bindsym $mod+d exec --no-startup-id "rofi -show drun"
@@ -235,4 +224,4 @@ for_window [class="cool-retro-term"] floating enable
 for_window [class="crt_test"] floating enable, resize set 604 432
 
 workspace 1 output DVI-0
-exec --no-startup-id ~/.config/i3/load_layout.sh
+exec --no-startup-id ~/.config/i3/load-layout.sh

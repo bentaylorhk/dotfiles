@@ -24,4 +24,4 @@ configuration {
     display-drun: "polyOS";
 }
 
-@theme "~/.config/rofi/themes/choihung.rasi"
+@theme "~/.config/rofi/themes/choi-hung.rasi"

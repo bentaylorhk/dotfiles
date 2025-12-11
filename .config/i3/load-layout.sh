@@ -11,7 +11,7 @@ IS_POLYPHONIC=0
 if [ "$IS_POLYPHONIC" -eq 1 ]; then
     i3-msg "workspace $WORKSPACE"
     i3-msg "append_layout /home/ben/.config/i3/polyphonic.json"
-    alacritty -o font.size=6 -e ~/repos/polymorphism/polymorphism_wrapper.sh
+    alacritty -o font.size=6 -e ~/repos/polymorphism/polymorphism-wrapper.sh
 
     sleep 1
 
@@ -22,7 +22,7 @@ fi
 
 if xrandr | grep -q "^DVI-0 connected"; then
     i3-msg "workspace $WORKSPACE"
-    i3-msg "append_layout $HOME/.config/i3/crt_terminal.json"
+    i3-msg "append_layout $HOME/.config/i3/crt-terminal.json"
     sleep 0.1
     alacritty -o font.size=6 --title crt &
 
@@ -40,7 +40,7 @@ else
 fi
 
 i3-msg "workspace $WORKSPACE"
-i3-msg "append_layout $HOME/.config/i3/boot_layout.json"
+i3-msg "append_layout $HOME/.config/i3/boot-layout.json"
 sleep 0.1
 feh --zoom $FEH_ZOOM "$IMGS_PATH" &
 alacritty --title cbonsai -e sh -c 'cbonsai -li' &

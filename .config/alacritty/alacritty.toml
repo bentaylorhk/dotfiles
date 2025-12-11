@@ -2,8 +2,7 @@
 # 2025
 
 [general]
-#import = ["~/.config/alacritty/gruvvbox.toml"]
-import = ["~/.config/alacritty/choihung.toml"]
+import = ["~/.config/alacritty/choi-hung.toml"]
 
 [window]
 title = "alacritty"

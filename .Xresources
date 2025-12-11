@@ -1,7 +1,7 @@
 ! Benjamin Michael Taylor (bentaylorhk)
 ! 2025
 
-#include "/home/ben/.Xresources.d/choihung.xcolors"
+#include ".Xresources.d/choi-hung.xcolors"
 
 Xft.antialias: 0
 Xft.rgba: none
