@@ -6,7 +6,9 @@
 set -e
 
 # Doubling font size for login readability
-setfont -d scientifica.psf
+#setfont -d scientifica.psf
+#setfont -d /usr/local/share/consolefonts/scientifica.psf
+setfont -d
 
 # Boot splash
 clear

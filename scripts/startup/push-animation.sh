@@ -9,7 +9,9 @@ set -e
 
 ANIMATION_DIR=~/scripts/startup
 
-SYSTEM_ASCII_ART_DIR=/usr/local/share/ascii-art
+SYSTEM_DIR=/usr/local/share
+SYSTEM_ASCII_ART_DIR=$SYSTEM_DIR/ascii-art
+SYSTEM_FONT_DIR=$SYSTEM_DIR/consolefonts
 
 sudo mkdir -p $SYSTEM_ASCII_ART_DIR
 sudo cp ~/ascii-art/polyOS/caligraphy.txt $SYSTEM_ASCII_ART_DIR/boot.txt
@@ -24,6 +26,9 @@ sudo cp -r ~/systemd/. /etc/systemd/system/.
 
 sudo chmod +x ~/scripts/justify.sh
 sudo cp ~/scripts/justify.sh /usr/local/bin/.
+
+sudo mkdir -p $SYSTEM_FONT_DIR
+sudo cp ~/fonts/scientifica/psf/scientifica.psf $SYSTEM_FONT_DIR/scientifica.psf
 
 sudo systemctl enable startup.service
 sudo systemctl enable getty@tty1.service
