@@ -1,6 +1,6 @@
 # ARK: Survival Evolved server
 
-`ark-server.service` runs TheIsland (`SessionName=green-out-land`) at boot, with
+`ark-server.service` runs TheIsland (`SessionName=Green Out Land`) at boot, with
 no login needed. `ConditionHost=polyphonic-1` stops it starting elsewhere.
 Game files, saves and `GameUserSettings.ini` / `Game.ini` live in `/srv/ark-se`,
 not in this repo. Keep passwords out of Git.
