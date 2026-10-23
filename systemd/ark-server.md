@@ -38,7 +38,17 @@ then `sudo systemctl start ark-server`.
 Run `sudo systemctl start ark-backup` for an immediate backup.
 
 Sanitised config is tracked in the separate `~/repos/ark-server` repo;
-refresh it with `sudo ~/scripts/ark/sync-config.sh`.
+refresh it with `~/scripts/ark/sync-config.sh` (no sudo; needs the `ark` group).
+
+## Agent / non-root access
+
+So `ben` (and tools running as `ben`) can manage the server without a password:
+
+- `sudo usermod -aG ark ben` and `UMask=0007` in a `systemctl edit ark-server`
+  drop-in make the files under `/srv/ark-se/ShooterGame/Saved` group-writable.
+- `sudo usermod -aG systemd-journal ben` allows `journalctl -u ark-server`.
+- `/etc/sudoers.d/ark` allows only `systemctl start|stop|restart|status` for
+  `ark-server` and `start ark-backup`, with no password.
 
 Everything here only runs on `polyphonic-1`: the units use `ConditionHost` and
 the scripts check `/etc/hostname`.
