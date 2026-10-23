@@ -5,3 +5,4 @@
 .keys
 *.tmp
 bin
+repos/ark-server

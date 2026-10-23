@@ -1,0 +1,20 @@
+[Unit]
+Description=ARK: Survival Evolved dedicated server
+ConditionHost=polyphonic-1
+Wants=network-online.target
+After=network-online.target
+
+[Service]
+Type=simple
+User=ark
+Group=ark
+WorkingDirectory=/srv/ark-se/ShooterGame/Binaries/Linux
+ExecStart=/srv/ark-se/ShooterGame/Binaries/Linux/ShooterGameServer TheIsland?listen?SessionName=green-out-land -server -log
+Restart=on-failure
+RestartSec=10
+KillSignal=SIGINT
+TimeoutStopSec=120
+LimitNOFILE=100000
+
+[Install]
+WantedBy=multi-user.target
