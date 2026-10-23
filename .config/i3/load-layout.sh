@@ -20,14 +20,28 @@ if [ "$IS_POLYPHONIC" -eq 1 ]; then
     exit
 fi
 
-if xrandr | grep -q "^DVI-0 connected"; then
+IS_JAMES=0
+if [ "$IS_JAMES" -eq 1 ]; then
     i3-msg "workspace $WORKSPACE"
-    i3-msg "append_layout $HOME/.config/i3/crt-terminal.json"
-    sleep 0.1
-    alacritty -o font.size=6 --title crt &
+    i3-msg "append_layout /home/ben/.config/i3/james.json"
+    # ~/james/launch.sh
+    ~/james/james_wrapper.sh
 
-    WORKSPACE=2
+    sleep 1
+
+    # i3-msg '[title="alacritty"] focus'
+
+    exit
 fi
+
+#if xrandr | grep -q "^DVI-0 connected"; then
+#    i3-msg "workspace $WORKSPACE"
+#    i3-msg "append_layout $HOME/.config/i3/crt-terminal.json"
+#    sleep 0.1
+#    alacritty -o font.size=6 --title crt &
+#
+#    WORKSPACE=2
+#fi
 
 HOSTNAME=$(cat /etc/hostname)
 
