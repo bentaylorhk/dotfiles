@@ -1,19 +1,23 @@
 ; Benjamin Michael Taylor (bentaylorhk)
-; 2025
+; 2025-2026
 
 ; To be copied into /etc/systemd/system/*.service
 
 [Unit]
 Description=polyOS Startup Script
 Before=getty@tty1.service
-After=systemd-user-sessions.service plymouth-quit-wait.service getty-pre.target
+After=systemd-user-sessions.service plymouth-quit-wait.service getty-pre.target systemd-vconsole-setup.service
 
 [Service]
 Type=oneshot
 ExecStart=/usr/local/bin/startup.sh
+Environment=TERM=linux
+StandardInput=tty
 StandardOutput=tty
+StandardError=journal
 RemainAfterExit=yes
 TTYPath=/dev/tty1
+TTYVTDisallocate=no
 
 [Install]
 WantedBy=multi-user.target

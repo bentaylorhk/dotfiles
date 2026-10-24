@@ -1,14 +1,9 @@
 #!/bin/bash
 
 # Benjamin Michael Taylor (bentaylorhk)
-# 2025
+# 2025-2026
 
-set -e
-
-# Doubling font size for login readability
-#setfont -d scientifica.psf
-#setfont -d /usr/local/share/consolefonts/scientifica.psf
-setfont -d
+set -euo pipefail
 
 # Boot splash
 clear

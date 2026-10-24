@@ -6,7 +6,7 @@
 IMGS_PATH=$HOME/images/dashboard
 
 WORKSPACE=1
-
+exit
 IS_POLYPHONIC=0
 if [ "$IS_POLYPHONIC" -eq 1 ]; then
     i3-msg "workspace $WORKSPACE"
@@ -53,10 +53,10 @@ else
     FEH_ZOOM=70
 fi
 
-i3-msg "workspace $WORKSPACE"
-i3-msg "append_layout $HOME/.config/i3/boot-layout.json"
-sleep 0.1
-feh --zoom $FEH_ZOOM "$IMGS_PATH" &
-alacritty --title cbonsai -e sh -c 'cbonsai -li' &
-alacritty --title neofetch -e sh -c 'echo && echo && neofetch && tput civis && read -r -s' &
-alacritty --title htop -e sh -c 'htop' &
+#i3-msg "workspace $WORKSPACE"
+#i3-msg "append_layout $HOME/.config/i3/boot-layout.json"
+#sleep 0.1
+#feh --zoom $FEH_ZOOM "$IMGS_PATH" &
+#alacritty --title cbonsai -e sh -c 'cbonsai -li' &
+#alacritty --title neofetch -e sh -c 'echo && echo && neofetch && tput civis && read -r -s' &
+#alacritty --title htop -e sh -c 'htop' &
