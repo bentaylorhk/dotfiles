@@ -7,7 +7,7 @@ usermodmap=$HOME/.Xmodmap
 sysresources=/etc/X11/xinit/.Xresources
 sysmodmap=/etc/X11/xinit/.Xmodmap
 
-if [ -f $sysresources ]; then
+if [ -f "$sysresources" ]; then
   xrdb -merge $sysresources
 fi
 
@@ -38,24 +38,26 @@ else
   xsetroot -solid "#000000"
 fi
 
-pulseaudio --start &
-
-# 'xrandr' modes aren't preserved by autorandr, so any
-# modes for specific machines are defined here
-if [ "$(cat /etc/hostname)" = "polyphonic-1" ]; then
-  #xrandr --newmode "320x240_60.00" 6.08 320 328 360 400 240 243 247 253 -HSync +VSync
-  #xrandr --addmode DVI-0 320x240_60.00
-  #xrandr --newmode "james" 27.000 720 732 796 864 576 581 586 625 -HSync -VSync
-  #xrandr --addmode "DVI-0" "james"
-  #xrandr --output "DVI-0" --mode "james"
-  :
+# Autorandr profiles cannot create custom modes; add the CRT mode before
+# applying a profile that uses it.
+if xrandr --query | grep -q '^DVI-0 connected'; then
+  if ! xrandr --query | grep -q '320x240_60.00'; then
+    xrandr --newmode "320x240_60.00" 6.08 320 328 360 400 240 243 247 253 -HSync +VSync
+  fi
+  if ! xrandr --query | awk '
+      /^DVI-0 connected/ { in_dvi = 1; next }
+      /^[^[:space:]]/ { in_dvi = 0 }
+      in_dvi && /320x240_60.00/ { found = 1 }
+      END { exit !found }
+    '; then
+    xrandr --addmode DVI-0 320x240_60.00
+  fi
 fi
 
-# Use the monitor's preferred (native) mode on any connected output
-xrandr --auto
-
-# Save monitor configuration with 'autorandr --save <layout_name>'
-# Touchscreen is mapped by hook in '.config/autorandr/postswitch'
-#autorandr --change
+# Apply the saved layout instead of overriding it with xrandr --auto.
+if ! autorandr --change; then
+  echo "autorandr could not apply a profile; using connected outputs' preferred modes." >&2
+  xrandr --auto
+fi
 
 exec i3

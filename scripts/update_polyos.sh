@@ -15,10 +15,11 @@ set -e
 if [[ $EUID -ne 0 ]]; then
   # Sync dotfiles before pacman to update packages file
   echo "Syncing dotfiles"
-  git --git-dir=$HOME/.dotfiles --work-tree=$HOME pull
+  git --git-dir="$HOME/.dotfiles" --work-tree="$HOME" pull
 
   # Using user home if list not provided
   PACKAGE_FILE="${1:-$HOME/pkglist.txt}"
+  PACKAGE_FILE="$(realpath -e -- "$PACKAGE_FILE")"
 
   echo "Promoting to root privileges..."
 
@@ -26,20 +27,18 @@ if [[ $EUID -ne 0 ]]; then
   exec sudo bash "$0" "$PACKAGE_FILE"
 fi
 
-# Check if running as root after sudo promotion
-if [[ $EUID -ne 0 ]]; then
-  echo "Failed to obtain root privileges. Exiting."
-  exit 1
+if [[ -n "${1:-}" ]]; then
+  PACKAGE_FILE="$1"
+elif [[ -n "${SUDO_USER:-}" ]]; then
+  USER_HOME="$(getent passwd "$SUDO_USER" | cut -d: -f6)"
+  if [[ -z "$USER_HOME" ]]; then
+    echo "Could not find the home directory for $SUDO_USER." >&2
+    exit 1
+  fi
+  PACKAGE_FILE="$USER_HOME/pkglist.txt"
+else
+  PACKAGE_FILE="$HOME/pkglist.txt"
 fi
-
-# Check if package list is provided
-if [[ -z "$1" ]]; then
-  echo "Usage: $0 <packages.txt>"
-  echo "    '~/pkglist.txt' used by default"
-  exit 1
-fi
-
-PACKAGE_FILE="$1"
 
 if [[ ! -f "$PACKAGE_FILE" ]]; then
   echo "Error: Package list file '$PACKAGE_FILE' not found."
@@ -48,7 +47,10 @@ fi
 
 # System update
 echo "Updating system..."
-pacman -Syuu --noconfirm
+if ! pacman -Syuu --noconfirm; then
+  echo "System update failed." >&2
+  exit 1
+fi
 
 # Read package list, ignoring comments (#) and empty lines
 echo "Reading package list from '$PACKAGE_FILE'..."
@@ -61,14 +63,18 @@ while IFS= read -r line; do
   fi
 done <"$PACKAGE_FILE"
 
-set +e
 echo "Installing user packages..."
-pacman -S --needed --noconfirm "${PACKAGES[@]}"
+install_status=0
+if pacman -S --needed --noconfirm "${PACKAGES[@]}"; then
+  :
+else
+  install_status=$?
+  echo "Package installation failed." >&2
+fi
 
 # TODO: Ensure polyai is installed with pip
 
-# Print success or failure message and wait for user input
-if [[ $? -eq 0 ]]; then
+if [[ "$install_status" -eq 0 ]]; then
   echo ""
   echo "Update and package installation completed successfully."
 else
@@ -76,4 +82,8 @@ else
   echo "Update or package installation failed."
 fi
 
-read -p $'Press Enter to continue...'
+if [[ -t 0 ]]; then
+  read -r -p $'Press Enter to continue...' || true
+fi
+
+exit "$install_status"

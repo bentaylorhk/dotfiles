@@ -2,5 +2,20 @@
 # Benjamin Michael Taylor (bentaylorhk)
 # 2025
 
-# Map touchscreen to only laptop
-xinput map-to-output 22 DSI1
+# Map a touchscreen to the connected internal display when both are present.
+internal_output=$(xrandr --query | awk '
+  $2 == "connected" && $1 ~ /^(DSI|eDP|LVDS)/ { print $1; exit }
+')
+touchscreen=$(xinput list --name-only | grep -iE 'touch ?screen' | head -n 1 || true)
+
+if [ -z "$internal_output" ] || [ -z "$touchscreen" ]; then
+  exit 0
+fi
+
+device_id=$(xinput list --id-only "$touchscreen" | head -n 1)
+if [ -z "$device_id" ]; then
+  echo "Could not find the XInput ID for touchscreen: $touchscreen" >&2
+  exit 1
+fi
+
+xinput map-to-output "$device_id" "$internal_output"

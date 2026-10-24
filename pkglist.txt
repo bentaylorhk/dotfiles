@@ -7,19 +7,33 @@
 # Core
 arch-install-scripts
 base
+base-devel
 
 # X and Window Manager
 xorg-server
 xorg-xinit
+xorg-xrandr
+xorg-xinput
+xorg-xset
+xorg-xsetroot
+xorg-xrdb
+xorg-xmodmap
 i3-wm
 polybar
 perl-anyevent-i3
 rofi
+xss-lock
+i3lock
+dex
+networkmanager
+network-manager-applet
+brightnessctl
 xclip
 xterm
 
 # Fonts & Symbols
-nerd-fonts
+ttf-nerd-fonts-symbols
+# AUR-only; install separately with scripts/aur.sh: scientifica-font
 
 # Transparent Windows
 picom
@@ -41,6 +55,7 @@ firefox
 spotify-launcher
 feh
 cool-retro-term
+mpv
 
 # CLI Tools
 htop
@@ -48,16 +63,22 @@ less
 lynx
 tmux
 lf
+github-cli
+cava
+pulsemixer
 
 # C/C++
 gcc
+clang
+gdb
+valgrind
 cmake
 make
 ninja
 
 # Libraries
 cli11
-sdl2
+sdl2-compat
 sdl2_ttf
 spdlog
 
@@ -71,7 +92,7 @@ python-redis
 python-requests
 python-rich
 python-sqlalchemy
-python-neovim
+python-pynvim
 
 # Languages
 ruby
@@ -115,7 +136,7 @@ sudo
 unzip
 which
 zip
-man
+man-db
 fakeroot
 wget
 lazygit
@@ -125,4 +146,6 @@ kitty
 fzf
 patch
 ufw
-steamcmd
+# AUR or optional-repository packages; install separately as needed:
+# scientifica-font
+# steamcmd
