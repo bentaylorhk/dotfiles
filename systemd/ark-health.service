@@ -1,0 +1,15 @@
+# Benjamin Michael Taylor (bentaylorhk)
+# 2026
+
+[Unit]
+Description=ARK server health check
+ConditionHost=polyphonic-1
+
+[Service]
+Type=oneshot
+User=ark
+Group=ark
+RuntimeDirectory=ark-health
+RuntimeDirectoryMode=0755
+RuntimeDirectoryPreserve=yes
+ExecStart=/usr/local/bin/ark-health

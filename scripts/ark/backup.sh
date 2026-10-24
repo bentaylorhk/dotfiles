@@ -4,7 +4,8 @@
 # 2026
 
 # Backs up the ARK world saves and config (everything else can be
-# re-downloaded with SteamCMD). Run by ark-backup.timer as the 'ark' user.
+# re-downloaded with SteamCMD) and deletes server logs older than 14 days.
+# Run by ark-backup.timer as the 'ark' user.
 # Keeps 7 daily and 4 weekly archives. If ARK_BACKUP_RSYNC_TARGET is set
 # (e.g. in /etc/default/ark-backup), copies the archives off this disk too.
 
@@ -34,6 +35,9 @@ prune() {
 }
 prune "$BACKUP_DIR/daily" 7
 prune "$BACKUP_DIR/weekly" 4
+
+# Old per-start server logs are only useful for a short while
+find "$SAVED/Logs" -name 'ShooterGame-backup-*.log' -mtime +14 -delete
 
 if [[ -n "${ARK_BACKUP_RSYNC_TARGET:-}" ]]; then
   rsync -a --delete "$BACKUP_DIR/" "$ARK_BACKUP_RSYNC_TARGET"

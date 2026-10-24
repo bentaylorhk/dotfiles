@@ -1,0 +1,12 @@
+# Benjamin Michael Taylor (bentaylorhk)
+# 2026
+
+[Unit]
+Description=Weekly ARK restart (warnings start 10:30, restart 11:30 Monday)
+ConditionHost=polyphonic-1
+
+[Timer]
+OnCalendar=Mon *-*-* 10:30:00 Europe/London
+
+[Install]
+WantedBy=timers.target

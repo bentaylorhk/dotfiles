@@ -1,0 +1,12 @@
+# Benjamin Michael Taylor (bentaylorhk)
+# 2026
+
+[Unit]
+Description=Pull ARK backups hourly while this machine is on
+
+[Timer]
+OnStartupSec=3min
+OnUnitActiveSec=1h
+
+[Install]
+WantedBy=timers.target

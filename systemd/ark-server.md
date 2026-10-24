@@ -47,6 +47,32 @@ backs up its saves/config, preserves live passwords, and starts it again.
 The service checks SteamCMD for updates on each start. After changing the
 tracked service unit, install it once with `sudo ~/scripts/ark/install-service.sh`.
 
+## Maintenance (RCON, restarts, health)
+
+Install everything once with `sudo ~/scripts/ark/install-maintenance.sh`, then
+run `~/scripts/ark/deploy-config.sh` so RCON is enabled in the live config.
+
+- RCON listens on 27020 and uses the admin password. ufw blocks it from outside;
+  never forward it on the router. `ark-rcon <command>` runs a command locally.
+- `ExecStop=ark-safe-stop` saves the world and sends `DoExit` before systemd
+  falls back to SIGINT, so reboots and restarts save first. Autosave is 5 minutes.
+- `ark-restart.timer` warns players at 10:30, 11:00 and 11:25 on Mondays and
+  restarts at 11:30 Europe/London (this also applies game updates).
+- `ark-health.timer` queries the server every 2 minutes and writes
+  `/run/ark-health/status.json`; the SSH banner shows it. After 3 missed
+  queries the unit fails, visible in `systemctl --failed`.
+- The nightly backup also deletes `ShooterGame-backup-*.log` older than 14 days.
+- Admin: Steam IDs in the ark-server repo's `config/AllowedCheaterSteamIDs.txt`
+  are deployed to `Saved/AllowedCheaterSteamIDs.txt`.
+- Off-machine backups: on a desktop, run
+  `systemctl --user enable --now ark-backup-pull.timer`
+  (`~/.config/systemd/user`, script `scripts/ark/pull-backups.sh`). It pulls
+  over SSH when the server is reachable and keeps 30 archives. The desktop's
+  SSH key must be in `~/.ssh/authorized_keys` here.
+- Wi-Fi is off on this host; `.bash_profile` turns it on for the tty1 X session
+  and off again when X exits, only on hosts with `WIFI_ONLY_IN_X_SESSION="yes"`
+  in `hosts/<hostname>.conf`. To enable it manually: `nmcli radio wifi on`.
+
 ## Agent / non-root access
 
 So `ben` (and tools running as `ben`) can manage the server without a password:

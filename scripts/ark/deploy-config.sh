@@ -14,7 +14,8 @@ set -euo pipefail
 
 REPO="$HOME/repos/ark-server"
 RENDERER="$REPO/scripts/render-config.py"
-LIVE=/srv/ark-se/ShooterGame/Saved/Config/LinuxServer
+SAVED=/srv/ark-se/ShooterGame/Saved
+LIVE="$SAVED/Config/LinuxServer"
 UNIT=/etc/systemd/system/ark-server.service
 
 [[ -x "$RENDERER" || -f "$RENDERER" ]] || {
@@ -31,8 +32,9 @@ UNIT=/etc/systemd/system/ark-server.service
 }
 if grep -q 'SessionName=green-out-land' "$UNIT" ||
    ! grep -q '^ExecStartPre=/usr/bin/steamcmd ' "$UNIT" ||
+   ! grep -q '^ExecStop=/usr/local/bin/ark-safe-stop' "$UNIT" ||
    ! grep -Fq 'TheIsland?listen?MaxPlayers=15 ' "$UNIT"; then
-  echo "Install the updated unit first: sudo ~/scripts/ark/install-service.sh" >&2
+  echo "Install the updated unit first: sudo ~/scripts/ark/install-maintenance.sh" >&2
   exit 1
 fi
 
@@ -57,6 +59,11 @@ if ! cat "$tmp/rendered/GameUserSettings.ini" >"$LIVE/GameUserSettings.ini" ||
   cat "$tmp/previous-Game.ini" >"$LIVE/Game.ini"
   echo "Config write failed; previous files were restored." >&2
   exit 1
+fi
+
+# Admin list: these players can use cheat/admin commands in-game
+if [[ -f "$REPO/config/AllowedCheaterSteamIDs.txt" ]]; then
+  cat "$REPO/config/AllowedCheaterSteamIDs.txt" >"$SAVED/AllowedCheaterSteamIDs.txt"
 fi
 
 sudo -n /usr/bin/systemctl start ark-server

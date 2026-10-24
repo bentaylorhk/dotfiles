@@ -2,6 +2,7 @@
 # 2023
 
 import argparse
+import json
 from datetime import datetime
 import os
 import platform
@@ -19,6 +20,54 @@ def format_uptime(seconds):
     if hours:
         return f'{hours}h {minutes}m'
     return f'{minutes}m'
+
+
+GREEN = '\033[32m'
+RED = '\033[31m'
+YELLOW = '\033[33m'
+RESET = '\033[0m'
+ARK_HEALTH_FILE = '/run/ark-health/status.json'
+ARK_BACKUP_DIR = '/srv/ark-backups/daily'
+ARK_DISK = '/srv'
+
+
+def print_centred(line, columns, word=None, colour=None):
+    """Centre a line, then colour one word so escape codes can't skew padding."""
+    line = line.center(columns)
+    if word:
+        head, _, tail = line.rpartition(word)
+        line = f'{head}{colour}{word}{RESET}{tail}'
+    print(line)
+
+
+def ark_health():
+    """Returns (text, word, colour) for the monitor's last result."""
+    try:
+        with open(ARK_HEALTH_FILE) as file:
+            status = json.load(file)
+    except (OSError, ValueError):
+        return 'Query - unknown', 'unknown', YELLOW
+    if time.time() - status.get('checked_at', 0) > 600:
+        return 'Query - unknown (monitor stale)', 'unknown', YELLOW
+    state = status['state']
+    colours = {'responding': GREEN, 'starting': YELLOW, 'slow': YELLOW}
+    text = f'Query - {state}'
+    if state == 'responding':
+        text += f' ({status["players"]}/{status["max_players"]} players)'
+    return text, state, colours.get(state, RED)
+
+
+def ark_backup_age():
+    """Returns (text, word, colour) for the newest daily backup."""
+    try:
+        newest = max(
+            os.path.getmtime(os.path.join(ARK_BACKUP_DIR, name))
+            for name in os.listdir(ARK_BACKUP_DIR) if name.startswith('ark-')
+        )
+    except (OSError, ValueError):
+        return 'Last backup - none found', 'none found', RED
+    age = format_uptime(time.time() - newest) + ' ago'
+    return f'Last backup - {age}', age, RED if time.time() - newest > 36 * 3600 else GREEN
 
 
 def read_cpu_times():
@@ -116,15 +165,24 @@ def main():
             print(line.center(shell_width.columns))
         if args.hostname is not None:
             print()
-            # Colour only the status, after centring so escape codes don't skew padding
-            status_line = f'Ark Server - {args.ark_status}'.center(shell_width.columns)
-            colour = '\033[32m' if args.ark_status == 'active' else '\033[31m'
-            head, _, tail = status_line.rpartition(args.ark_status)
-            print(f'{head}{colour}{args.ark_status}\033[0m{tail}')
-            if args.ark_status == 'active' and args.ark_since_monotonic_us:
-                # Monotonic time is immune to wall-clock adjustments
-                uptime = time.monotonic() - args.ark_since_monotonic_us / 1e6
-                print(f'Uptime - {format_uptime(uptime)}'.center(shell_width.columns))
+            columns = shell_width.columns
+            status = args.ark_status
+            print_centred(f'Ark Server - {status}', columns, status,
+                          GREEN if status == 'active' else RED)
+            if status == 'active':
+                if args.ark_since_monotonic_us:
+                    # Monotonic time is immune to wall-clock adjustments
+                    uptime = time.monotonic() - args.ark_since_monotonic_us / 1e6
+                    print_centred(f'Uptime - {format_uptime(uptime)}', columns)
+                text, word, colour = ark_health()
+                print_centred(text, columns, word, colour)
+            text, word, colour = ark_backup_age()
+            print_centred(text, columns, word, colour)
+            try:
+                free = shutil.disk_usage(ARK_DISK).free / 1024**3
+                print_centred(f'Free on {ARK_DISK} - {free:.0f} GiB', columns)
+            except OSError:
+                pass
             print()
 
 

@@ -1,0 +1,13 @@
+# Benjamin Michael Taylor (bentaylorhk)
+# 2026
+
+[Unit]
+Description=Check the ARK server every two minutes
+ConditionHost=polyphonic-1
+
+[Timer]
+OnBootSec=3min
+OnUnitActiveSec=2min
+
+[Install]
+WantedBy=timers.target

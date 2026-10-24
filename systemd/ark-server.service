@@ -14,6 +14,7 @@ Group=ark
 WorkingDirectory=/srv/ark-se/ShooterGame/Binaries/Linux
 ExecStartPre=/usr/bin/steamcmd +force_install_dir /srv/ark-se +login anonymous +app_update 376030 +quit
 ExecStart=/srv/ark-se/ShooterGame/Binaries/Linux/ShooterGameServer TheIsland?listen?MaxPlayers=15 -server -log
+ExecStop=/usr/local/bin/ark-safe-stop
 Restart=on-failure
 RestartSec=10
 KillSignal=SIGINT
