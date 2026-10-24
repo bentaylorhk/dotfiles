@@ -29,10 +29,18 @@ if [[ -n ${SSH_CONNECTION:-} ]]; then
   __header_hostname="${HOSTNAME:-$(uname -n)}"
   __header_ark_status="$(systemctl is-active ark-server.service 2>/dev/null || true)"
   [[ -n "$__header_ark_status" ]] || __header_ark_status=unknown
-  python "$HOME/scripts/bash_header.py" \
-    --dir-path "$HOME/ascii-art/bash-headers" \
-    --hostname "$__header_hostname" \
+  __header_args=(
+    --dir-path "$HOME/ascii-art/bash-headers"
+    --hostname "$__header_hostname"
     --ark-status "$__header_ark_status"
+  )
+  if [[ "$__header_ark_status" == active ]]; then
+    __header_ark_since="$(systemctl show ark-server.service \
+      -p ActiveEnterTimestampMonotonic --value 2>/dev/null || true)"
+    [[ "$__header_ark_since" =~ ^[0-9]+$ ]] &&
+      __header_args+=(--ark-since-monotonic-us "$__header_ark_since")
+  fi
+  python "$HOME/scripts/bash_header.py" "${__header_args[@]}"
 else
   python "$HOME/scripts/bash_header.py" --dir-path "$HOME/ascii-art/bash-headers"
 fi

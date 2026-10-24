@@ -5,6 +5,18 @@ import argparse
 import os
 import random
 import shutil
+import time
+
+
+def format_uptime(seconds):
+    days, rem = divmod(max(int(seconds), 0), 86400)
+    hours, rem = divmod(rem, 3600)
+    minutes = rem // 60
+    if days:
+        return f'{days}d {hours}h {minutes}m'
+    if hours:
+        return f'{hours}h {minutes}m'
+    return f'{minutes}m'
 
 
 def main():
@@ -16,6 +28,7 @@ def main():
     )
     parser.add_argument('--hostname')
     parser.add_argument('--ark-status')
+    parser.add_argument('--ark-since-monotonic-us', type=int)
     args = parser.parse_args()
     if (args.hostname is None) != (args.ark_status is None):
         parser.error('--hostname and --ark-status must be provided together')
@@ -50,6 +63,10 @@ def main():
             colour = '\033[32m' if args.ark_status == 'active' else '\033[31m'
             head, _, tail = status_line.rpartition(args.ark_status)
             print(f'{head}{colour}{args.ark_status}\033[0m{tail}')
+            if args.ark_status == 'active' and args.ark_since_monotonic_us:
+                # Monotonic time is immune to wall-clock adjustments
+                uptime = time.monotonic() - args.ark_since_monotonic_us / 1e6
+                print(f'Uptime - {format_uptime(uptime)}'.center(shell_width.columns))
             print()
 
 
