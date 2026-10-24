@@ -1,0 +1,40 @@
+# Benjamin Michael Taylor (bentaylorhk)
+# 2025-2026
+
+# Pacman packages installed on every polyOS machine
+
+# Core
+arch-install-scripts
+base
+base-devel
+
+# CLI Tools
+htop
+less
+lynx
+tmux
+lf
+
+# Editors
+vim
+neovim
+nano
+
+# Utils
+debugedit
+fd
+git
+npm
+openssh
+ripgrep
+sudo
+unzip
+which
+zip
+man-db
+fakeroot
+wget
+lazygit
+imagemagick
+fzf
+patch

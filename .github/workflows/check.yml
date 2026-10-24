@@ -1,0 +1,17 @@
+name: check
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install tools
+        run: sudo apt-get update && sudo apt-get install -y shellcheck i3-wm xvfb
+      - name: Static checks
+        run: xvfb-run -a scripts/check.sh
+      - name: Audit
+        run: scripts/audit.sh

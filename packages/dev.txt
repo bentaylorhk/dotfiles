@@ -1,0 +1,60 @@
+# Benjamin Michael Taylor (bentaylorhk)
+# 2025-2026
+
+# Pacman packages for development machines
+
+# C/C++
+gcc
+clang
+gdb
+valgrind
+cmake
+make
+ninja
+
+# Libraries
+cli11
+sdl2-compat
+sdl2_ttf
+spdlog
+
+# Python
+python
+python-openai
+python-opencv
+python-pydantic
+python-fastapi
+python-redis
+python-requests
+python-rich
+python-sqlalchemy
+python-pynvim
+
+# Languages
+ruby
+rust
+nodejs
+go
+jdk-openjdk
+julia
+php
+composer
+lua
+
+# LSPs/Linters/Formatters
+tree-sitter-cli
+nix
+
+# GitHub
+github-cli
+
+# LaTeX
+texlive-basic
+texlive-latex
+texlive-fontsrecommended
+texlive-latexrecommended
+texlive-latexextra
+texlive-pictures
+texlive-pstricks
+texlive-binextra
+biber

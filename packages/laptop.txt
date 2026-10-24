@@ -1,0 +1,10 @@
+# Benjamin Michael Taylor (bentaylorhk)
+# 2026
+
+# Pacman packages for laptops and touchscreen devices
+
+# Backlight keys in the i3 config
+brightnessctl
+
+# Touchscreen mapping in the autorandr postswitch hook
+xorg-xinput

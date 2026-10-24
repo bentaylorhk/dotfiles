@@ -1,0 +1,50 @@
+# Benjamin Michael Taylor (bentaylorhk)
+# 2025-2026
+
+# Pacman packages for machines running the X/i3 desktop
+
+# X and Window Manager
+xorg-server
+xorg-xinit
+xorg-xrandr
+xorg-xset
+xorg-xsetroot
+xorg-xrdb
+xorg-xmodmap
+i3-wm
+polybar
+perl-anyevent-i3
+rofi
+xss-lock
+i3lock
+dex
+networkmanager
+network-manager-applet
+xclip
+xterm
+autorandr
+
+# Fonts & Symbols
+ttf-nerd-fonts-symbols
+
+# Transparent Windows
+picom
+
+# Screensaver
+xscreensaver
+
+# Audio (pipewire with pulse interface)
+pipewire
+pipewire-alsa
+pipewire-pulse
+wireplumber
+alsa-utils
+pavucontrol
+
+# GUI Applications
+alacritty
+kitty
+firefox
+spotify-launcher
+feh
+cool-retro-term

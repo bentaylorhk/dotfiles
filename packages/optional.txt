@@ -1,0 +1,12 @@
+# Benjamin Michael Taylor (bentaylorhk)
+# 2026
+
+# Pacman packages that are nice to have, but not required for polyOS
+
+# Media
+mpv
+cava
+pulsemixer
+
+# Firewall
+ufw

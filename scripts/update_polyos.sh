@@ -1,89 +1,208 @@
 #!/bin/bash
 
 # Benjamin Michael Taylor (bentaylorhk)
-# 2025
+# 2025-2026
 
-# Script used to sync polyOS between machines. Syncs
-# its dotfiles, and pacman packages.
+# Script used to sync polyOS between machines: dotfiles, pacman packages
+# and AUR packages. Run it as your normal user, it uses sudo only for pacman
+# and system files. Package roles come from hosts/<hostname>.conf.
 
-# To get this script to run without a sudo prompt, add the
-# following line to sudoers with 'sudo visudo'
-# <username> ALL=(ALL) NOPASSWD: /path/to/update_polyos.sh
+set -euo pipefail
 
-set -e
+SCRIPT_PATH="$(readlink -f "${BASH_SOURCE[0]}")"
+REPO_DIR="$(dirname "$(dirname "$SCRIPT_PATH")")"
+GIT_DIR="${DOTFILES_GIT_DIR:-$REPO_DIR/.dotfiles}"
+PACKAGES_DIR="$REPO_DIR/packages"
 
-if [[ $EUID -ne 0 ]]; then
-  # Sync dotfiles before pacman to update packages file
+DRY_RUN=0
+ASSUME_YES=0
+ROLES_OVERRIDE=""
+
+usage() {
+  cat <<EOF
+Usage: ${0##*/} <command> [options]
+
+Commands:
+  sync           Pull the latest dotfiles (fast-forward only)
+  packages       Install missing pacman packages for this host's roles
+  aur            Install missing AUR packages with yay (skipped without yay)
+  system-config  Install system-level files, see scripts/install-system.sh
+  upgrade        Run a full system upgrade (pacman -Syu)
+  all            sync, upgrade, packages, then aur
+
+Options:
+  --roles a,b    Use these package roles instead of the host's roles
+  --dry-run      Print what would happen without changing anything
+  --yes          Don't ask pacman or yay for confirmation
+  -h, --help     Show this help
+EOF
+}
+
+die() {
+  echo "Error: $*" >&2
+  exit 1
+}
+
+# Prints the command in a dry run, otherwise runs it
+run() {
+  if [[ "$DRY_RUN" -eq 1 ]]; then
+    echo "[dry-run] $*"
+  else
+    "$@"
+  fi
+}
+
+run_root() {
+  if [[ "$EUID" -eq 0 ]]; then
+    run "$@"
+  else
+    run sudo "$@"
+  fi
+}
+
+# Prints the packages in a role file, ignoring comments and blank lines
+read_role() {
+  local role="$1" file line
+  [[ "$role" =~ ^[a-z0-9_-]+$ ]] || die "Invalid role name '$role'."
+  file="$PACKAGES_DIR/$role.txt"
+  [[ -f "$file" ]] || die "No package list for role '$role' ($file)."
+  while IFS= read -r line || [[ -n "$line" ]]; do
+    line="${line%%#*}"
+    line="${line//[[:space:]]/}"
+    [[ -n "$line" ]] && echo "$line"
+  done <"$file"
+  return 0
+}
+
+host_roles() {
+  if [[ -n "$ROLES_OVERRIDE" ]]; then
+    echo "${ROLES_OVERRIDE//,/ }"
+    return
+  fi
+  local ROLES=""
+  # shellcheck disable=SC1091
+  [[ -f "$REPO_DIR/scripts/lib/host.sh" ]] &&
+    POLYOS_HOSTS_DIR="$REPO_DIR/hosts" . "$REPO_DIR/scripts/lib/host.sh"
+  echo "$ROLES"
+}
+
+cmd_sync() {
   echo "Syncing dotfiles"
-  git --git-dir="$HOME/.dotfiles" --work-tree="$HOME" pull
+  run git --git-dir="$GIT_DIR" --work-tree="$REPO_DIR" pull --ff-only
+}
 
-  # Using user home if list not provided
-  PACKAGE_FILE="${1:-$HOME/pkglist.txt}"
-  PACKAGE_FILE="$(realpath -e -- "$PACKAGE_FILE")"
+cmd_upgrade() {
+  echo "Upgrading system..."
+  local args=(-Syu)
+  [[ "$ASSUME_YES" -eq 1 ]] && args+=(--noconfirm)
+  run_root pacman "${args[@]}"
+}
 
-  echo "Promoting to root privileges..."
+cmd_packages() {
+  local roles role packages=() args=(-S --needed)
+  roles="$(host_roles)"
+  [[ -n "$roles" ]] || die "No package roles found, set ROLES in hosts/default.conf."
+  echo "Installing packages for roles: $roles"
+  for role in $roles; do
+    [[ "$role" == aur ]] && die "The 'aur' role is installed with the aur command."
+    mapfile -t -O "${#packages[@]}" packages < <(read_role "$role")
+  done
+  [[ "${#packages[@]}" -gt 0 ]] || die "The selected roles contain no packages."
+  [[ "$ASSUME_YES" -eq 1 ]] && args+=(--noconfirm)
+  run_root pacman "${args[@]}" "${packages[@]}"
+}
 
-  # Running whole script as root, then exiting
-  exec sudo bash "$0" "$PACKAGE_FILE"
-fi
-
-if [[ -n "${1:-}" ]]; then
-  PACKAGE_FILE="$1"
-elif [[ -n "${SUDO_USER:-}" ]]; then
-  USER_HOME="$(getent passwd "$SUDO_USER" | cut -d: -f6)"
-  if [[ -z "$USER_HOME" ]]; then
-    echo "Could not find the home directory for $SUDO_USER." >&2
-    exit 1
+cmd_aur() {
+  local packages=() args=(-S --needed)
+  if ! command -v yay >/dev/null 2>&1; then
+    echo "yay is not installed, skipping AUR packages (see packages/aur.txt)."
+    return 0
   fi
-  PACKAGE_FILE="$USER_HOME/pkglist.txt"
-else
-  PACKAGE_FILE="$HOME/pkglist.txt"
-fi
+  [[ "$EUID" -ne 0 ]] || die "yay must not run as root."
+  mapfile -t packages < <(read_role aur)
+  [[ "${#packages[@]}" -gt 0 ]] || return 0
+  echo "Installing AUR packages..."
+  [[ "$ASSUME_YES" -eq 1 ]] && args+=(--noconfirm)
+  run yay "${args[@]}" "${packages[@]}"
+}
 
-if [[ ! -f "$PACKAGE_FILE" ]]; then
-  echo "Error: Package list file '$PACKAGE_FILE' not found."
-  exit 1
-fi
+cmd_system_config() {
+  local args=()
+  [[ "$DRY_RUN" -eq 1 ]] && args+=(--dry-run)
+  "$REPO_DIR/scripts/install-system.sh" "${args[@]}"
+}
 
-# System update
-echo "Updating system..."
-if ! pacman -Syuu --noconfirm; then
-  echo "System update failed." >&2
-  exit 1
-fi
+# Runs every step even if one fails, and returns the first failing status
+cmd_all() {
+  local status=0 step
+  for step in cmd_sync cmd_upgrade cmd_packages cmd_aur; do
+    "$step" || {
+      local rc=$?
+      echo "${step#cmd_} failed." >&2
+      [[ "$status" -eq 0 ]] && status=$rc
+    }
+  done
+  return "$status"
+}
 
-# Read package list, ignoring comments (#) and empty lines
-echo "Reading package list from '$PACKAGE_FILE'..."
-PACKAGES=()
-while IFS= read -r line; do
-  line="${line%%#*}" # Remove comments
-  line="${line// /}" # Remove spaces
-  if [[ -n "$line" ]]; then
-    PACKAGES+=("$line")
+main() {
+  [[ $# -gt 0 ]] || {
+    usage
+    return 1
+  }
+  [[ "$EUID" -ne 0 ]] || die "Run as your normal user, sudo is used when needed."
+
+  local command="$1"
+  shift
+  while [[ $# -gt 0 ]]; do
+    case "$1" in
+      --dry-run) DRY_RUN=1 ;;
+      --yes) ASSUME_YES=1 ;;
+      --roles)
+        [[ $# -ge 2 ]] || die "--roles needs a value."
+        ROLES_OVERRIDE="$2"
+        shift
+        ;;
+      -h | --help)
+        usage
+        return 0
+        ;;
+      *) die "Unknown option '$1'." ;;
+    esac
+    shift
+  done
+
+  local status=0
+  case "$command" in
+    sync) cmd_sync || status=$? ;;
+    packages) cmd_packages || status=$? ;;
+    aur) cmd_aur || status=$? ;;
+    system-config) cmd_system_config || status=$? ;;
+    upgrade) cmd_upgrade || status=$? ;;
+    all) cmd_all || status=$? ;;
+    -h | --help)
+      usage
+      return 0
+      ;;
+    *)
+      usage >&2
+      die "Unknown command '$command'."
+      ;;
+  esac
+
+  echo ""
+  if [[ "$status" -eq 0 ]]; then
+    echo "$command completed successfully."
+  else
+    echo "$command failed." >&2
   fi
-done <"$PACKAGE_FILE"
 
-echo "Installing user packages..."
-install_status=0
-if pacman -S --needed --noconfirm "${PACKAGES[@]}"; then
-  :
-else
-  install_status=$?
-  echo "Package installation failed." >&2
-fi
+  # Keeps the floating update window open until it has been read
+  if [[ "$DRY_RUN" -eq 0 && "$ASSUME_YES" -eq 0 && -t 0 && -t 1 ]]; then
+    read -r -p $'Press Enter to continue...' || true
+  fi
+  return "$status"
+}
 
-# TODO: Ensure polyai is installed with pip
-
-if [[ "$install_status" -eq 0 ]]; then
-  echo ""
-  echo "Update and package installation completed successfully."
-else
-  echo ""
-  echo "Update or package installation failed."
-fi
-
-if [[ -t 0 ]]; then
-  read -r -p $'Press Enter to continue...' || true
-fi
-
-exit "$install_status"
+# On one line so bash never re-reads this file if 'sync' replaces it
+main "$@"; exit $?

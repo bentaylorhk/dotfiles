@@ -4,7 +4,7 @@
 # 2025
 
 # Launch Alacritty with a unique title so we can find it
-alacritty --title "update-polyos" -e 'update_polyos.sh' &
+alacritty --title "update-polyos" -e update_polyos.sh all &
 
 # Give it a moment to appear
 sleep 0.1

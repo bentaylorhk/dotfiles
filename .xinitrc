@@ -38,19 +38,22 @@ else
   xsetroot -solid "#000000"
 fi
 
-# Autorandr profiles cannot create custom modes; add the CRT mode before
-# applying a profile that uses it.
-if xrandr --query | grep -q '^DVI-0 connected'; then
-  if ! xrandr --query | grep -q '320x240_60.00'; then
-    xrandr --newmode "320x240_60.00" 6.08 320 328 360 400 240 243 247 253 -HSync +VSync
+# Autorandr profiles cannot create custom modes; add this host's CRT mode
+# before applying a profile that uses it.
+[ -f "$HOME/scripts/lib/host.sh" ] && . "$HOME/scripts/lib/host.sh"
+if [ -n "${CRT_OUTPUT:-}" ] && [ -n "${CRT_MODE_NAME:-}" ] &&
+  xrandr --query | grep -q "^$CRT_OUTPUT connected"; then
+  if ! xrandr --query | grep -q "$CRT_MODE_NAME"; then
+    # shellcheck disable=SC2086
+    xrandr --newmode "$CRT_MODE_NAME" $CRT_MODELINE
   fi
-  if ! xrandr --query | awk '
-      /^DVI-0 connected/ { in_dvi = 1; next }
-      /^[^[:space:]]/ { in_dvi = 0 }
-      in_dvi && /320x240_60.00/ { found = 1 }
+  if ! xrandr --query | awk -v out="$CRT_OUTPUT" -v mode="$CRT_MODE_NAME" '
+      $1 == out && $2 == "connected" { in_out = 1; next }
+      /^[^[:space:]]/ { in_out = 0 }
+      in_out && $1 == mode { found = 1 }
       END { exit !found }
     '; then
-    xrandr --addmode DVI-0 320x240_60.00
+    xrandr --addmode "$CRT_OUTPUT" "$CRT_MODE_NAME"
   fi
 fi
 

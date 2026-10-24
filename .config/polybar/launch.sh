@@ -5,6 +5,10 @@
 
 set -euo pipefail
 
+# Host settings provide CRT_OUTPUT, which gets the smaller CRT bar
+CRT_OUTPUT=""
+[[ -f "$HOME/scripts/lib/host.sh" ]] && . "$HOME/scripts/lib/host.sh"
+
 pkill -u "$UID" -x polybar 2>/dev/null || true
 
 for _ in {1..50}; do
@@ -21,7 +25,7 @@ fi
 
 while IFS= read -r monitor; do
   [ -n "$monitor" ] || continue
-  if [ "$monitor" = "DVI-0" ]; then
+  if [[ -n "$CRT_OUTPUT" && "$monitor" == "$CRT_OUTPUT" ]]; then
     MONITOR="$monitor" polybar crt &
   else
     MONITOR="$monitor" polybar main &
