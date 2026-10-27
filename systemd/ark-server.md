@@ -35,7 +35,7 @@ then `sudo systemctl start ark-server`.
 ## Backups and config repo
 
 `ark-backup.timer` (installed by `scripts/ark/install-backup.sh`, also run by
-`setup.sh`) archives `SavedArks` and `Config` nightly at 04:00 to
+`setup.sh`) archives `SavedArks` and `Config` hourly to
 `/srv/ark-backups` (48 hourly, 7 daily, 4 weekly; hourly timer). To also copy them off this disk, create
 `/etc/default/ark-backup` with `ARK_BACKUP_RSYNC_TARGET=user@host:/path/`.
 Run `sudo systemctl start ark-backup` for an immediate backup.
