@@ -1,9 +1,0 @@
-# Benjamin Michael Taylor (bentaylorhk)
-# 2026
-
-[Unit]
-Description=Pull ARK server backups to this machine
-
-[Service]
-Type=oneshot
-ExecStart=%h/scripts/ark/pull-backups.sh

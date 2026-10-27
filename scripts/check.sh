@@ -119,7 +119,7 @@ fi
 echo "== systemd units"
 if need_tool systemd-analyze; then
   units=()
-  for u in systemd/startup.service systemd/ark-*.service systemd/ark-*.timer; do
+  for u in systemd/startup.service; do
     [[ -f "$u" ]] && units+=("$u")
   done
   # Units reference files installed elsewhere, so only syntax errors matter

@@ -11,7 +11,7 @@ Most dotfiles live in `$HOME`. These files are installed outside it and need roo
 | `scripts/justify.sh` | `/usr/local/bin/justify.sh` | `install-system.sh` |
 | `systemd/startup.service` | `/etc/systemd/system/` | `install-system.sh` |
 | `systemd/getty@tty1.service.d/override.conf` | `/etc/systemd/system/getty@tty1.service.d/` | `install-system.sh` |
-| `systemd/ark-*.service`, `ark-backup.timer` | `/etc/systemd/system/` | Manual, ARK host only (`systemd/ark-server.md`) |
+| ARK units (see the `ark-server` repo) | `/etc/systemd/system/` | Manual, ARK host only (`~/repos/ark-server/docs/server.md`) |
 | `.config/grub/update_grub.sh` | `/etc/default/grub` | Manual, GPD and ATX hosts |
 | `fonts/scientifica/psf/push_font.sh` | Console font | `scripts/startup/push-animation.sh` |
 
