@@ -61,6 +61,7 @@ dotfiles reset --hard HEAD@{1}
 | `scripts/lib/host.sh` | Sourced loader: default, then `/etc/hostname` file |
 | `scripts/update_polyos.sh` (`update-polyos`) | Updater with subcommands |
 | `scripts/install-system.sh` | Installs system-level files with backup and rollback |
+| `scripts/display-calibrate.sh` | Reports physical display DPI before choosing Xft scaling |
 | `scripts/check.sh`, `scripts/audit.sh` | Static checks and repo audit |
 | `systemd/`, `scripts/startup/` | System-level files, see `docs/system-files.md` |
 | `.config/` | Per-application user config |
@@ -80,6 +81,9 @@ CRT_MODELINE="6.08 320 328 360 400 240 243 247 253 -HSync +VSync"
 ```
 
 Unknown hostnames fall back to `hosts/default.conf` (`common desktop`).
+
+Use `scripts/display-calibrate.sh` on a laptop before changing `Xft.dpi` in
+`.Xresources`. It only reports panel measurements and leaves display settings unchanged.
 
 ## Updater
 
