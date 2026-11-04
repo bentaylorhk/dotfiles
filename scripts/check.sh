@@ -89,7 +89,7 @@ if [[ "$ONLINE" -eq 1 ]]; then
   if need_tool pacman; then
     mapfile -t known < <(pacman -Sl | awk '{print $2}' | sort -u)
     for p in "${!SEEN[@]}"; do
-      [[ "${SEEN[$p]}" == packages/aur.txt ]] && continue
+      [[ "${SEEN[$p]}" == packages/aur*.txt ]] && continue
       printf '%s\n' "${known[@]}" | grep -qxF -- "$p" || fail "${SEEN[$p]}: '$p' not in pacman repos"
     done
   fi

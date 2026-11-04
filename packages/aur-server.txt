@@ -1,0 +1,6 @@
+# Benjamin Michael Taylor (bentaylorhk)
+# 2026
+
+# AUR packages for dedicated server hosts
+
+steamcmd

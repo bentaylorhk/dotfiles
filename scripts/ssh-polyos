@@ -1,0 +1,38 @@
+#!/usr/bin/env bash
+
+# Benjamin Michael Taylor (bentaylorhk)
+# 2026
+
+set -euo pipefail
+
+usage() {
+  echo "Usage: ssh-polyos <host> [ssh arguments...]" >&2
+}
+
+[[ $# -ge 1 ]] || {
+  usage
+  exit 1
+}
+
+host="$1"
+shift
+[[ "$host" =~ ^[a-z0-9][a-z0-9-]*$ ]] || {
+  echo "Invalid host name: $host" >&2
+  exit 1
+}
+
+repo_dir="$(dirname "$(dirname "$(readlink -f "${BASH_SOURCE[0]}")")")"
+POLYOS_HOSTNAME="$host"
+POLYOS_HOSTS_DIR="$repo_dir/hosts"
+export POLYOS_HOSTNAME POLYOS_HOSTS_DIR
+
+SSH_TARGET=
+# shellcheck disable=SC1091
+. "$repo_dir/scripts/lib/host.sh"
+
+[[ "$SSH_TARGET" =~ ^[a-z_][a-z0-9_-]*@[0-9a-fA-F:.]+$ ]] || {
+  echo "No valid SSH target is configured for '$host'." >&2
+  exit 1
+}
+
+exec ssh "$SSH_TARGET" "$@"

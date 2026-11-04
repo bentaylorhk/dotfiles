@@ -56,7 +56,7 @@ dotfiles reset --hard HEAD@{1}
 
 | Path | Purpose |
 | --- | --- |
-| `packages/<role>.txt` | One pacman package per line; `aur.txt` is installed with `yay` |
+| `packages/<role>.txt` | One package per line; `aur*.txt` use managed AUR source clones |
 | `hosts/default.conf`, `hosts/<hostname>.conf` | Per-host `ROLES` and CRT display settings |
 | `scripts/lib/host.sh` | Sourced loader: default, then `/etc/hostname` file |
 | `scripts/update_polyos.sh` (`update-polyos`) | Updater with subcommands |
@@ -67,11 +67,13 @@ dotfiles reset --hard HEAD@{1}
 
 ## Package roles and hosts
 
-Roles: `common`, `desktop`, `dev`, `laptop`, `optional`, `aur`. A package belongs
-to exactly one file. `hosts/<hostname>.conf` is plain shell:
+Roles: `common`, `desktop`, `dev`, `laptop`, `optional`; AUR roles are declared
+separately in `AUR_ROLES`. A package belongs to exactly one file.
+`hosts/<hostname>.conf` is plain shell:
 
 ```sh
 ROLES="common desktop dev optional"
+AUR_ROLES="aur aur-server"  # optional
 CRT_OUTPUT="DVI-0"            # optional, used by .xinitrc and polybar
 CRT_MODE_NAME="320x240_60.00"
 CRT_MODELINE="6.08 320 328 360 400 240 243 247 253 -HSync +VSync"
@@ -89,7 +91,8 @@ update-polyos <sync|packages|aur|system-config|upgrade|all> [--roles a,b] [--dry
 | --- | --- |
 | `sync` | `git pull --ff-only` of the dotfiles |
 | `packages` | `pacman -S --needed` for this host's roles |
-| `aur` | `yay -S --needed` from `packages/aur.txt` (skipped without `yay`) |
+| `aur` | Updates managed AUR clones in `~/aur` and rebuilds changed sources |
+| `aur-inventory` | Lists installed foreign packages not declared by AUR roles |
 | `system-config` | `scripts/install-system.sh` |
 | `upgrade` | `pacman -Syu` |
 | `all` | `sync`, `upgrade`, `packages`, `aur` (used by the polybar/rofi menus) |

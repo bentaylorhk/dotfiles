@@ -26,12 +26,13 @@ It configures Arch Linux installations collectively named **polyOS**.
 - The common base is the shared desktop experience used by every non-WSL
   polyOS host, including `polyphonic-1`.
 - WSL is the current exception and must use its own explicit profile.
-- `polyos/hosts.conf` is the authoritative hostname-to-role registry for
-  machine-specific packages and behavior; never infer a role from hardware.
+- `hosts/default.conf` and `hosts/<hostname>.conf`, loaded by
+  `scripts/lib/host.sh`, are the authoritative machine-role configuration;
+  never infer a role from hardware.
 - Keep each role overlay narrow. Use separate overlays for desktop, laptop,
   CRT, WSL, and server needs.
-- `polyos/ssh-hosts.conf` holds non-sensitive SSH connection targets for the
-  `ssh-polyos` helper; never put keys or credentials there.
+- `SSH_TARGET` in a host configuration holds the non-sensitive target used by
+  `ssh-polyos`; never put keys or credentials there.
 
 ## Working safely
 
@@ -69,7 +70,7 @@ item until its scope has been explicitly approved.
 
 ## AUR packages
 
-- Track AUR package names in role-specific manifests.
+- Track AUR package names in role-specific `packages/aur*.txt` manifests.
 - Use cached clones in `~/aur`, update them with `git pull --ff-only`, and
   rebuild them with `makepkg` only when their source commit changes.
 - Build as the invoking non-root user and allow missing build dependencies to

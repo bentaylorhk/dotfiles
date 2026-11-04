@@ -25,7 +25,8 @@ Usage: ${0##*/} <command> [options]
 Commands:
   sync           Pull the latest dotfiles (fast-forward only)
   packages       Install missing pacman packages for this host's roles
-  aur            Install missing AUR packages with yay (skipped without yay)
+  aur            Build/install changed AUR package sources for this host
+  aur-inventory  List installed foreign packages not declared for this host
   system-config  Install system-level files, see scripts/install-system.sh
   upgrade        Run a full system upgrade (pacman -Syu)
   all            sync, upgrade, packages, then aur
@@ -33,7 +34,7 @@ Commands:
 Options:
   --roles a,b    Use these package roles instead of the host's roles
   --dry-run      Print what would happen without changing anything
-  --yes          Don't ask pacman or yay for confirmation
+  --yes          Don't ask pacman or makepkg for confirmation
   -h, --help     Show this help
 EOF
 }
@@ -86,6 +87,26 @@ host_roles() {
   echo "$ROLES"
 }
 
+host_aur_roles() {
+  local AUR_ROLES="aur"
+  # shellcheck disable=SC1091
+  [[ -f "$REPO_DIR/scripts/lib/host.sh" ]] &&
+    POLYOS_HOSTS_DIR="$REPO_DIR/hosts" . "$REPO_DIR/scripts/lib/host.sh"
+  echo "$AUR_ROLES"
+}
+
+read_aur_role() {
+  local role="$1" file line
+  [[ "$role" =~ ^aur(-[a-z0-9_-]+)?$ ]] || die "Invalid AUR role '$role'."
+  file="$PACKAGES_DIR/$role.txt"
+  [[ -f "$file" ]] || die "No AUR package list for role '$role' ($file)."
+  while IFS= read -r line || [[ -n "$line" ]]; do
+    line="${line%%#*}"
+    line="${line//[[:space:]]/}"
+    [[ -n "$line" ]] && echo "$line"
+  done <"$file"
+}
+
 cmd_sync() {
   echo "Syncing dotfiles"
   run git --git-dir="$GIT_DIR" --work-tree="$REPO_DIR" pull --ff-only
@@ -113,17 +134,81 @@ cmd_packages() {
 }
 
 cmd_aur() {
-  local packages=() args=(-S --needed)
-  if ! command -v yay >/dev/null 2>&1; then
-    echo "yay is not installed, skipping AUR packages (see packages/aur.txt)."
-    return 0
-  fi
-  [[ "$EUID" -ne 0 ]] || die "yay must not run as root."
-  mapfile -t packages < <(read_role aur)
+  local roles role package source_dir remote commit marker origin
+  local packages=()
+  declare -A seen=()
+
+  roles="$(host_aur_roles)"
+  [[ -n "$roles" ]] || return 0
+  for role in $roles; do
+    while IFS= read -r package; do
+      [[ -n "${seen[$package]:-}" ]] && continue
+      seen["$package"]=1
+      packages+=("$package")
+    done < <(read_aur_role "$role")
+  done
   [[ "${#packages[@]}" -gt 0 ]] || return 0
-  echo "Installing AUR packages..."
-  [[ "$ASSUME_YES" -eq 1 ]] && args+=(--noconfirm)
-  run yay "${args[@]}" "${packages[@]}"
+
+  for package in "${packages[@]}"; do
+    source_dir="$HOME/aur/$package"
+    remote="https://aur.archlinux.org/$package.git"
+    marker="$source_dir/.polyos-last-build"
+
+    if [[ "$DRY_RUN" -eq 1 ]]; then
+      echo "[dry-run] update and build $package from $remote"
+      continue
+    fi
+
+    if [[ -d "$source_dir/.git" ]]; then
+      origin="$(git -C "$source_dir" config --get remote.origin.url || true)"
+      [[ "$origin" == "$remote" ]] || die "Unexpected origin for $source_dir."
+      git -C "$source_dir" pull --ff-only
+    elif [[ -e "$source_dir" ]]; then
+      die "AUR source path is not a Git clone: $source_dir."
+    else
+      mkdir -p "$HOME/aur"
+      git clone "$remote" "$source_dir"
+    fi
+
+    commit="$(git -C "$source_dir" rev-parse HEAD)"
+    if [[ -f "$marker" && "$(cat "$marker")" == "$commit" ]] &&
+       pacman -Q "$package" >/dev/null 2>&1; then
+      echo "$package is already current."
+      continue
+    fi
+
+    echo "Building $package..."
+    (
+      cd "$source_dir"
+      makepkg --syncdeps --rmdeps --clean --noconfirm --install
+    )
+    printf '%s\n' "$commit" >"$marker"
+  done
+}
+
+cmd_aur_inventory() {
+  local roles role package found=0
+  declare -A declared=()
+
+  roles="$(host_aur_roles)"
+  for role in $roles; do
+    while IFS= read -r package; do
+      declared["$package"]=1
+    done < <(read_aur_role "$role")
+  done
+
+  while read -r package _; do
+    [[ -n "$package" ]] || continue
+    if [[ -z "${declared[$package]:-}" ]]; then
+      [[ "$found" -eq 1 ]] || {
+        echo "Untracked foreign packages:"
+        found=1
+      }
+      echo "  $package"
+    fi
+  done < <(pacman -Qm)
+
+  [[ "$found" -eq 1 ]] || echo "All installed foreign packages are declared."
 }
 
 cmd_system_config() {
@@ -177,6 +262,7 @@ main() {
     sync) cmd_sync || status=$? ;;
     packages) cmd_packages || status=$? ;;
     aur) cmd_aur || status=$? ;;
+    aur-inventory) cmd_aur_inventory || status=$? ;;
     system-config) cmd_system_config || status=$? ;;
     upgrade) cmd_upgrade || status=$? ;;
     all) cmd_all || status=$? ;;

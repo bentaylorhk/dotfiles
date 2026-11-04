@@ -1,8 +1,9 @@
 # Benjamin Michael Taylor (bentaylorhk)
 # 2026
 
-# AUR packages, installed with yay by 'update_polyos.sh aur'
+# AUR packages for desktop hosts, installed from managed source clones
 # Packages that are in the official repositories belong in the other lists
 
 scientifica-font
-steamcmd
+cbonsai
+spicetify-cli
