@@ -1,0 +1,121 @@
+#!/bin/bash
+
+# Benjamin Michael Taylor (bentaylorhk)
+# 2026
+
+# Pulls the ARK server's backup archives over SSH onto this machine.
+# Run it by hand or from a timer; needs rsync and an SSH key that the server
+# accepts. The server's 5-minute 'recent' snapshots and half-written *.tmp
+# files are never copied. Nothing is deleted on the server, and local copies
+# are only pruned to the KEEP_* counts below.
+
+set -uo pipefail
+
+SERVER="${ARK_SERVER:-ben@192.168.1.146}"
+REMOTE_DIR="${ARK_REMOTE_DIR:-/srv/ark-backups}"
+DEST="${ARK_BACKUP_DEST:-$HOME/ark-backups}"
+KEEP_HOURLY="${ARK_KEEP_HOURLY:-24}"
+KEEP_DAILY="${ARK_KEEP_DAILY:-30}"
+KEEP_WEEKLY="${ARK_KEEP_WEEKLY:-26}"
+# Timers set this so an offline server isn't a failure
+SOFT_FAIL="${ARK_BACKUP_SOFT_FAIL:-0}"
+
+TIERS=(hourly daily weekly)
+DRY_RUN=0
+
+usage() {
+  cat <<EOF
+Usage: ${0##*/} [--dry-run] [-h]
+
+Pulls $REMOTE_DIR/{hourly,daily,weekly} from \$ARK_SERVER into \$ARK_BACKUP_DEST.
+
+Environment (current values):
+  ARK_SERVER=$SERVER
+  ARK_BACKUP_DEST=$DEST
+  ARK_KEEP_HOURLY=$KEEP_HOURLY  ARK_KEEP_DAILY=$KEEP_DAILY  ARK_KEEP_WEEKLY=$KEEP_WEEKLY
+  ARK_BACKUP_SOFT_FAIL=$SOFT_FAIL   (1: exit 0 when the server is unreachable)
+EOF
+}
+
+case "${1:-}" in
+  --dry-run) DRY_RUN=1 ;;
+  -h | --help)
+    usage
+    exit 0
+    ;;
+  '') ;;
+  *)
+    usage >&2
+    exit 2
+    ;;
+esac
+
+command -v rsync >/dev/null 2>&1 || {
+  echo "rsync is not installed (sudo pacman -S rsync)." >&2
+  exit 1
+}
+
+keep_for() {
+  case "$1" in
+    hourly) echo "$KEEP_HOURLY" ;;
+    daily) echo "$KEEP_DAILY" ;;
+    weekly) echo "$KEEP_WEEKLY" ;;
+  esac
+}
+
+SSH_CMD="ssh -o BatchMode=yes -o ConnectTimeout=5"
+
+for tier in "${TIERS[@]}"; do
+  mkdir -p "$DEST/$tier"
+done
+
+# Archive names are timestamps, so the newest N sort last by name
+newest_remote() {
+  # shellcheck disable=SC2086
+  $SSH_CMD "$SERVER" "ls -1 '$REMOTE_DIR/$1'" 2>/dev/null |
+    grep -E '^ark-.*\.tar\.zst$' | sort | tail -n "$2"
+}
+
+status=0
+for tier in "${TIERS[@]}"; do
+  keep="$(keep_for "$tier")"
+  mapfile -t wanted < <(newest_remote "$tier" "$keep")
+  if [[ "${#wanted[@]}" -eq 0 ]]; then
+    echo "Could not list $tier backups on $SERVER." >&2
+    [[ "$SOFT_FAIL" == 1 ]] && exit 0
+    exit 1
+  fi
+
+  # Only the newest N archives, skipping any that are already here
+  rsync_args=(-t --timeout=60 --partial -e "$SSH_CMD" --files-from=-)
+  [[ "$DRY_RUN" -eq 1 ]] && rsync_args+=(--dry-run -v)
+  if ! printf '%s\n' "${wanted[@]}" |
+    rsync "${rsync_args[@]}" "$SERVER:$REMOTE_DIR/$tier/" "$DEST/$tier/"; then
+    echo "Pull of $tier backups failed." >&2
+    status=1
+    continue
+  fi
+
+  [[ "$DRY_RUN" -eq 1 ]] && continue
+
+  # Keep a longer history than the server by pruning only the oldest extras
+  { ls -1 "$DEST/$tier"/ark-*.tar.zst 2>/dev/null || true; } | sort |
+    head -n "-$keep" | xargs -r rm --
+done
+
+[[ "$DRY_RUN" -eq 1 ]] && exit "$status"
+
+# Verify the newest archive of each tier is intact
+if command -v zstd >/dev/null 2>&1; then
+  for tier in "${TIERS[@]}"; do
+    latest="$({ ls -1 "$DEST/$tier"/ark-*.tar.zst 2>/dev/null || true; } | sort | tail -n 1)"
+    [[ -n "$latest" ]] || continue
+    zstd -tq "$latest" || {
+      echo "Corrupt archive: $latest" >&2
+      status=1
+    }
+  done
+fi
+
+[[ "$status" -eq 0 ]] && echo "ARK backups synced to $DEST"
+exit "$status"

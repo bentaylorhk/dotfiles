@@ -62,6 +62,7 @@ dotfiles reset --hard HEAD@{1}
 | `scripts/update_polyos.sh` (`update-polyos`) | Updater with subcommands |
 | `scripts/install-system.sh` | Installs system-level files with backup and rollback |
 | `scripts/display-calibrate.sh` | Reports physical display DPI before choosing Xft scaling |
+| `scripts/ark-backup-pull` | Pulls the ARK server's backups over SSH (see the `ark-server` repo) |
 | `scripts/check.sh`, `scripts/audit.sh` | Static checks and repo audit |
 | `systemd/`, `scripts/startup/` | System-level files, see `docs/system-files.md` |
 | `.config/` | Per-application user config |

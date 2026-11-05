@@ -26,6 +26,7 @@ fd
 git
 npm
 openssh
+rsync
 ripgrep
 sudo
 unzip
